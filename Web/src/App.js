@@ -3,15 +3,22 @@ import LogoutButton from './components/LogoutButton'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Transition, Disclosure, Menu } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
+import jwt_decode from "jwt-decode";
 
 export default function App() {
-  const { user, loginWithRedirect, getIdTokenClaims } = useAuth0();
+  const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
   const [ idClaims, setIdClaims ] = useState();
+  const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
     setIdClaims(data);
+    const token = await getAccessTokenSilently({
+      audience: 'http://localhost:8080',
+      scope: "breathe:underwater",
+    });
+    setAccessToken(jwt_decode(token));
   }, []);
 
   useEffect(() => {
@@ -176,7 +183,7 @@ export default function App() {
         </button>
         <button 
           onClick={()=>loginWithRedirect({screen_hint: 'signup', login_hint: 'sam@indd.com'})} 
-          style={{display: 'inline-block'}}
+          style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Sign Up
@@ -236,6 +243,7 @@ export default function App() {
           <br/>
           <hr/>
           <br/>
+          <>
           <div class="max-w-sm w-full lg:max-w-full lg:flex overflow-scroll">
             <div class="px-6 py-4">
               <div class="font-bold text-xl mb-2">Id Token</div>
@@ -244,6 +252,19 @@ export default function App() {
               </p>
             </div>
           </div>
+          <br/>
+          <hr/>
+          <br/>
+          <div class="max-w-sm w-full lg:max-w-full lg:flex overflow-scroll">
+            <div class="px-6 py-4">
+              <div class="font-bold text-xl mb-2">Access Token</div>
+              <p class="text-gray-700 text-xs">
+              <pre>{JSON.stringify(accessToken, null, 2)}</pre>
+              </p>
+            </div>
+          </div>
+          </>
+          
         </div>
       }
     </div>
