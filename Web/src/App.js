@@ -16,7 +16,6 @@ export default function App() {
     setIdClaims(data);
     const token = await getAccessTokenSilently({
       audience: 'http://localhost:8080',
-      scope: "breathe:underwater",
     });
     setAccessToken(jwt_decode(token));
   }, []);
@@ -172,7 +171,7 @@ export default function App() {
     <br></br>
     <br></br>
     <div style={{width:"310px", margin:"0 auto"}}>
-      {!user && 
+      {!user && !errorDescription &&
       <>
         <button 
           onClick={()=>loginWithRedirect()} 
@@ -182,17 +181,26 @@ export default function App() {
           Login
         </button>
         <button 
-          onClick={()=>loginWithRedirect({screen_hint: 'signup', login_hint: 'sam@indd.com'})} 
+          onClick={()=>loginWithRedirect({screen_hint: 'signup'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Sign Up
         </button>
-        {errorDescription && 
-        <p>{errorDescription}</p>
-        }
         </>
       } 
+      {!user && errorDescription && 
+        <>
+          <p>{errorDescription}</p>
+          <button 
+          onClick={()=>loginWithRedirect({prompt: 'login'})} 
+          style={{display: 'inline-block', marginLeft: '10px'}}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Log In
+        </button>
+        </>
+      }
       {user &&
         <div style={{margin: 'auto'}}>
           <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>

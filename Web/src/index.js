@@ -12,7 +12,6 @@ ReactDOM.render(
     useRefreshTokens={true}
     cacheLocation='localstorage'
     audience='http://localhost:8080'
-    scope='breathe:underwater'
   >
     <React.StrictMode>
       <App />
