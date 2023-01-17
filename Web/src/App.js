@@ -5,6 +5,7 @@ import { Transition, Disclosure, Menu } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
 import jwt_decode from "jwt-decode";
 
+// Comment for Vercel
 export default function App() {
   const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
   const [ idClaims, setIdClaims ] = useState();
