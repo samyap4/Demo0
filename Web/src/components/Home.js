@@ -175,7 +175,7 @@ export default function Home() {
     </Disclosure>
     <br></br>
     <br></br>
-    <div style={{width:"800px", margin:"0 auto"}}>
+    <div style={{width:"1000px", margin:"0 auto"}}>
       {!user && !errorDescription &&
       <>
         <button 
@@ -205,6 +205,13 @@ export default function Home() {
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login w Custom DB
+        </button>
+        <button 
+          onClick={()=>loginWithRedirect({connection: 'WorkforceBiz'})} 
+          style={{display: 'inline-block', marginLeft: '10px'}}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Login w AD/LDAP
         </button>
         <button 
           onClick={()=>loginWithRedirect({screen_hint: 'signup'})} 
