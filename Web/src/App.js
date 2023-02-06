@@ -2,36 +2,22 @@ import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
-  Route
+  Route,
+  useNavigate
 } from "react-router-dom";
 import Home from './components/Home';
-// import PrivacyPolicy from "./components/PrivacyPolicy";
-// import TermsOfService from "./components/TermsOfService";
 
 export default function App() {
   return (
     <Router>
       <div>
-        {/* <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-            <li>
-              <Link to="/users">Users</Link>
-            </li>
-          </ul>
-        </nav> */}
-
         {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
         <Routes>
           <Route path='/' element={<Home/>} />
           <Route path='/privacy-policy' element={<PrivacyPolicy/>} />
           <Route path='/terms-of-service' element={<TermsOfService/>} />
+          <Route path='/about' element={<About/>} />
         </Routes>
       </div>
     </Router>
@@ -39,6 +25,7 @@ export default function App() {
 }
 
 function PrivacyPolicy() {
+  const navigate = useNavigate();
   return (
     <>
     <div style={{width:"800px", margin:"0 auto"}}>
@@ -248,12 +235,20 @@ function PrivacyPolicy() {
       </div>
       </div>
       </div>
+      <button 
+          onClick={() => navigate('/')} 
+          style={{display: 'inline-block'}}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Return Home
+    </button>
     </div>
     </>
   );
 }
 
 function TermsOfService() {
+  const navigate = useNavigate();
   return (
     <>
     <div style={{width:"800px", margin:"0 auto"}}>
@@ -277,6 +272,35 @@ function TermsOfService() {
 <p><a href="&#109;&#097;&#105;&#108;&#116;&#111;&#058;sam.&#121;&#97;p&#107;ow&#105;tz&#64;&#111;k&#116;&#97;.&#99;&#111;&#109;">&#115;&#97;m&#46;&#121;&#97;&#112;&#107;&#111;&#119;&#105;t&#122;&#64;ok&#116;a&#46;&#99;&#111;m</a></p>
 <p>This document was last updated on January 24, 2023</p>
 <p class="madewith"><a href="https://www.websitepolicies.com/?via=madewithbadge" target="_blank" rel="nofollow"><img width="200" height="25" alt="Made with WebsitePolicies" src="https://cdn.websitepolicies.io/img/badge.png" srcset="https://cdn.websitepolicies.io/img/badge_2x.png 2x"/></a></p>
+<button 
+          onClick={() => navigate('/')} 
+          style={{display: 'inline-block'}}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Return Home
+    </button>
+    </div>
+    </>
+  );
+}
+
+function About() {
+  const navigate = useNavigate();
+  return (
+    <>
+    <div style={{width:"800px", margin:"0 auto"}}>
+    <h1>About</h1>
+    <p>Hello! This application is designed to allow users to see the value of Auth0.  Using this application you can interact with the Auth0 service by authenticating with a variety of authentication methods such as: UN/PW, Social OAuth 2.0 and enterprise federation leveraging SAML and OIDC.</p>
+    <br></br>
+    <br></br>
+    <p>You can get started by clicking below and trying out one of the authentication methods using the Auth0 Universal Login.  Once you login you can view the information returned in your tokens, go through MFA challenges and SSO into other applications.</p>
+    <button 
+          onClick={() => navigate('/')} 
+          style={{display: 'inline-block'}}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Get Started
+    </button>
     </div>
     </>
   );
