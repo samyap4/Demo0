@@ -47,6 +47,9 @@ export default function Home() {
 
   const navigation = [
     { name: 'Home', href: '#', current: true },
+    { name: 'About', href: 'about', current: false },
+    { name: 'Privacy Policy', href: 'privacy-policy', current: false },
+    { name: 'Terms of Service', href: 'terms-of-service', current: false },
   ];
   
   return (
