@@ -21,9 +21,9 @@ export default function Home() {
     setAccessToken(jwt_decode(token));
   }, []);
 
-  // useEffect(() => {
-  //   getClaims();
-  // }, [user]);
+  useEffect(() => {
+    getClaims();
+  }, [user]);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
