@@ -203,11 +203,11 @@ export default function Home() {
           Login w Org B
         </button>
         <button 
-          onClick={()=>loginWithRedirect({connection: 'azure-b2c'})} 
+          onClick={()=>loginWithRedirect({connection: 'sms'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
-          Login w Custom DB
+          Login w SMS
         </button>
         <button 
           onClick={()=>loginWithRedirect({'ext-alt-brand' : 'portal_1'})} 
