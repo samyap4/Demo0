@@ -69,15 +69,15 @@ export default function Home() {
     if (!loginData && !user) {
       googleOneTap(options, async (response) => {
         console.log(response);
-        const res = await fetch("/api/google-login", {
-          method: "POST",
-          body: JSON.stringify({
-            token: response.credential,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        // const res = await fetch("/api/google-login", {
+        //   method: "POST",
+        //   body: JSON.stringify({
+        //     token: response.credential,
+        //   }),
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // });
       
         setLoginData(response);
         localStorage.setItem("loginData", JSON.stringify(response));
