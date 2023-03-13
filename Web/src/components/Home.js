@@ -8,7 +8,7 @@ import googleOneTap from "google-one-tap";
 
 // Powered by Vercel
 export default function Home() {
-  const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently, logout } = useAuth0();
+  const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently, logout, isLoading, isAuthenticated } = useAuth0();
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
@@ -66,7 +66,7 @@ export default function Home() {
       context: "signin", // optional
     };
 
-    if (!loginData && !user && !errorDescription) {
+    if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
       googleOneTap(options, async (response) => {
         console.log(response);
       
@@ -88,7 +88,7 @@ export default function Home() {
 
       });
     }
-  }, [loginData, user, errorDescription]);
+  }, [loginData, errorDescription, isLoading, isAuthenticated]);
 
   const logoutAuth0AndGoogle = () => {
     localStorage.removeItem("loginData");
