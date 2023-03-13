@@ -4,10 +4,18 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { Transition, Disclosure, Menu } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
 import jwt_decode from "jwt-decode";
+import googleOneTap from "google-one-tap";
+
+const options = {
+  client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
+  auto_select: false, // optional
+  cancel_on_tap_outside: false, // optional
+  context: "signin", // optional
+};
 
 // Powered by Vercel
 export default function Home() {
-  const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently } = useAuth0();
+  const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently, logout } = useAuth0();
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
@@ -51,6 +59,38 @@ export default function Home() {
     { name: 'Privacy Policy', href: 'privacy-policy', current: false },
     { name: 'Terms of Service', href: 'terms-of-service', current: false },
   ];
+
+  const [loginData, setLoginData] = useState(
+    localStorage.getItem("loginData")
+      ? JSON.parse(localStorage.getItem("loginData"))
+      : null
+  );
+  useEffect(() => {
+    if (!loginData && !user) {
+      googleOneTap(options, async (response) => {
+        console.log(response);
+        const res = await fetch("/api/google-login", {
+          method: "POST",
+          body: JSON.stringify({
+            token: response.credential,
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        const data = await res.json();
+        setLoginData(data);
+        localStorage.setItem("loginData", JSON.stringify(data));
+      });
+    }
+  }, [loginData]);
+
+  const logoutAuth0AndGoogle = () => {
+    localStorage.removeItem("loginData");
+    setLoginData(null);
+    logout();
+  };
   
   return (
     <>
@@ -271,7 +311,14 @@ export default function Home() {
               </table>
           </div>
           <br></br>
-          <LogoutButton />
+          <div>
+            <button 
+                onClick={()=>logoutAuth0AndGoogle()} 
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                >
+                Logout
+                </button>
+        </div>
           <br/>
           <hr/>
           <br/>
