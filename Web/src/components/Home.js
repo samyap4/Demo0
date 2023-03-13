@@ -78,11 +78,10 @@ export default function Home() {
             "Content-Type": "application/json",
           },
         });
-        console.log('res', res);
-        const data = await res.json();
-        setLoginData(data);
-        localStorage.setItem("loginData", JSON.stringify(data));
-        let jwt = window.jwt_decode(data.credential);
+      
+        setLoginData(response);
+        localStorage.setItem("loginData", JSON.stringify(response));
+        let jwt = window.jwt_decode(response.credential);
         console.log('decoded jwt', jwt);
         try {
          const options = {
