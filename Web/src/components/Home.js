@@ -81,7 +81,7 @@ export default function Home() {
       
         setLoginData(response);
         localStorage.setItem("loginData", JSON.stringify(response));
-        let jwt = window.jwt_decode(response.credential);
+        let jwt = jwt_decode(response.credential);
         console.log('decoded jwt', jwt);
         try {
          const options = {
