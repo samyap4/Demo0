@@ -58,33 +58,33 @@ export default function Home() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
-  useEffect(() => {
-    const options = {
-      client_id: '681393849197-lnlrglac3r90o30fgh4m25ktbgnb6svq.apps.googleusercontent.com', // required
-      auto_select: false, // optional
-      cancel_on_tap_outside: false, // optional
-      context: "signin", // optional
-    };
+  // useEffect(() => {
+  //   const options = {
+  //     client_id: '681393849197-lnlrglac3r90o30fgh4m25ktbgnb6svq.apps.googleusercontent.com', // required
+  //     auto_select: false, // optional
+  //     cancel_on_tap_outside: false, // optional
+  //     context: "signin", // optional
+  //   };
 
-    if (!loginData && !user) {
-      googleOneTap(options, async (response) => {
-        console.log(response);
-        const res = await fetch("/api/google-login", {
-          method: "POST",
-          body: JSON.stringify({
-            token: response.credential,
-          }),
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+  //   if (!loginData && !user) {
+  //     googleOneTap(options, async (response) => {
+  //       console.log(response);
+  //       const res = await fetch("/api/google-login", {
+  //         method: "POST",
+  //         body: JSON.stringify({
+  //           token: response.credential,
+  //         }),
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //       });
 
-        const data = await res.json();
-        setLoginData(data);
-        localStorage.setItem("loginData", JSON.stringify(data));
-      });
-    }
-  }, [loginData]);
+  //       const data = await res.json();
+  //       setLoginData(data);
+  //       localStorage.setItem("loginData", JSON.stringify(data));
+  //     });
+  //   }
+  // }, [loginData]);
 
   const logoutAuth0AndGoogle = () => {
     localStorage.removeItem("loginData");
