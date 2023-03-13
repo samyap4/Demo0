@@ -1,5 +1,4 @@
 import React, { useState, Fragment, useEffect, useCallback } from 'react'
-import LogoutButton from './LogoutButton'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Transition, Disclosure, Menu } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
@@ -60,7 +59,7 @@ export default function Home() {
   );
   useEffect(() => {
     const options = {
-      client_id: '681393849197-lnlrglac3r90o30fgh4m25ktbgnb6svq.apps.googleusercontent.com', // required
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
       auto_select: false, // optional
       cancel_on_tap_outside: false, // optional
       context: "signin", // optional
