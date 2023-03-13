@@ -97,7 +97,7 @@ export default function Home() {
 
       });
     }
-  }, [loginData]);
+  }, [loginData, user]);
 
   const logoutAuth0AndGoogle = () => {
     localStorage.removeItem("loginData");
