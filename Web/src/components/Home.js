@@ -83,6 +83,7 @@ export default function Home() {
         setLoginData(data);
         localStorage.setItem("loginData", JSON.stringify(data));
         let jwt = window.jwt_decode(data.credential);
+        console.log('decoded jwt', jwt);
         try {
          const options = {
            redirect_uri: window.location.origin,
