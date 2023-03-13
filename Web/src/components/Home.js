@@ -78,7 +78,7 @@ export default function Home() {
             "Content-Type": "application/json",
           },
         });
-
+        console.log('res', res);
         const data = await res.json();
         setLoginData(data);
         localStorage.setItem("loginData", JSON.stringify(data));
