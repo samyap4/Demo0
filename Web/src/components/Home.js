@@ -66,18 +66,9 @@ export default function Home() {
       context: "signin", // optional
     };
 
-    if (!loginData && !user) {
+    if (!loginData && !user && !errorDescription) {
       googleOneTap(options, async (response) => {
         console.log(response);
-        // const res = await fetch("/api/google-login", {
-        //   method: "POST",
-        //   body: JSON.stringify({
-        //     token: response.credential,
-        //   }),
-        //   headers: {
-        //     "Content-Type": "application/json",
-        //   },
-        // });
       
         setLoginData(response);
         localStorage.setItem("loginData", JSON.stringify(response));
@@ -97,7 +88,7 @@ export default function Home() {
 
       });
     }
-  }, [loginData, user]);
+  }, [loginData, user, errorDescription]);
 
   const logoutAuth0AndGoogle = () => {
     localStorage.removeItem("loginData");
