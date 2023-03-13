@@ -6,13 +6,6 @@ import { BellIcon } from '@heroicons/react/outline'
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 
-const options = {
-  client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
-  auto_select: false, // optional
-  cancel_on_tap_outside: false, // optional
-  context: "signin", // optional
-};
-
 // Powered by Vercel
 export default function Home() {
   const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently, logout } = useAuth0();
@@ -66,6 +59,13 @@ export default function Home() {
       : null
   );
   useEffect(() => {
+    const options = {
+      client_id: '681393849197-lnlrglac3r90o30fgh4m25ktbgnb6svq.apps.googleusercontent.com', // required
+      auto_select: false, // optional
+      cancel_on_tap_outside: false, // optional
+      context: "signin", // optional
+    };
+
     if (!loginData && !user) {
       googleOneTap(options, async (response) => {
         console.log(response);
