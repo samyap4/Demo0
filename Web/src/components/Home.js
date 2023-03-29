@@ -57,6 +57,7 @@ export default function Home() {
       ? JSON.parse(localStorage.getItem("loginData"))
       : null
   );
+
   useEffect(() => {
     const options = {
       client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
@@ -67,12 +68,10 @@ export default function Home() {
 
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
       googleOneTap(options, async (response) => {
-        console.log(response);
       
         setLoginData(response);
         localStorage.setItem("loginData", JSON.stringify(response));
         let jwt = jwt_decode(response.credential);
-        console.log('decoded jwt', jwt);
         try {
          const options = {
            redirect_uri: window.location.origin,
