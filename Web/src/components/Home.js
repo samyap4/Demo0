@@ -68,22 +68,19 @@ export default function Home() {
 
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
       googleOneTap(options, async (response) => {
-      
         setLoginData(response);
         localStorage.setItem("loginData", JSON.stringify(response));
         let jwt = jwt_decode(response.credential);
         try {
-         const options = {
+          const options = {
            redirect_uri: window.location.origin,
            login_hint: jwt.email,
            connection: 'google-oauth2'
-         };
-
+          };
           loginWithRedirect(options);
         } catch (err) {
          console.err("Login failed", err);
         }
-
       });
     }
   }, [loginData, errorDescription, isLoading, isAuthenticated]);
