@@ -221,49 +221,49 @@ export default function Home() {
       {!user && !errorDescription &&
       <>
         <button 
-          onClick={()=>loginWithRedirect({custom_workflow: '1'})}
+          onClick={() => loginWithRedirect({custom_workflow: '1'})}
           style={{display: 'inline-block'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login
         </button>
         <button 
-          onClick={()=>loginWithRedirect({connection: 'OktaSAML'})} 
+          onClick={() => loginWithRedirect({connection: 'OktaSAML'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login w SSO
         </button>
         <button 
-          onClick={()=>loginWithRedirect({organization: 'org_uTGQp17SrA1PX0tY'})} 
+          onClick={() => loginWithRedirect({organization: 'org_uTGQp17SrA1PX0tY'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login w Org A
         </button>
         <button 
-          onClick={()=>loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
+          onClick={() => loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login w Org B
         </button>
         <button 
-          onClick={()=>loginWithRedirect({connection: 'sms'})} 
+          onClick={() => loginWithRedirect({connection: 'sms'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login w SMS
         </button>
         <button 
-          onClick={()=>loginWithRedirect({'ext-alt-brand' : 'portal_1'})} 
+          onClick={() => loginWithRedirect({'ext-alt-brand' : 'portal_1'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
           Login w Alt Brand
         </button>
         <button 
-          onClick={()=>loginWithRedirect({screen_hint: 'signup'})} 
+          onClick={() => loginWithRedirect({screen_hint: 'signup'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
@@ -275,7 +275,7 @@ export default function Home() {
         <>
           <p>{errorDescription}</p>
           <button 
-          onClick={()=>loginWithRedirect({prompt: 'login'})} 
+          onClick={() => loginWithRedirect({prompt: 'login'})} 
           style={{display: 'inline-block', marginLeft: '10px'}}
           class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         >
@@ -312,7 +312,7 @@ export default function Home() {
           <br></br>
           <div>
             <button 
-                onClick={()=>logoutAuth0AndGoogle()} 
+                onClick={() => logoutAuth0AndGoogle()} 
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                 >
                 Logout
@@ -323,27 +323,27 @@ export default function Home() {
           <br/>
           <>
           <button 
-                onClick={()=>goToOktaReact()} 
+                onClick={() => goToOktaReact()} 
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                 Partner App
                 </button>
             <button 
-                onClick={()=>goToDatadog()} 
+                onClick={() => goToDatadog()} 
                 style={{display: 'inline-block', marginLeft: '10px'}}
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
                 View Logs (SSO)
                 </button>
                 <button 
-                onClick={()=>loginWithRedirect({acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'})} 
+                onClick={() => loginWithRedirect({acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'})} 
                 style={{display: 'inline-block', marginLeft: '10px'}}
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 Issue MFA
               </button>
               <button 
-                onClick={()=>loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
+                onClick={() => loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
                 style={{display: 'inline-block', marginLeft: '10px'}}
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
