@@ -5,7 +5,6 @@ import { BellIcon } from '@heroicons/react/outline'
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 
-// Powered by Vercel
 export default function Home() {
   const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently, logout, isLoading, isAuthenticated } = useAuth0();
   const [ idClaims, setIdClaims ] = useState();
