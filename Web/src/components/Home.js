@@ -14,10 +14,14 @@ export default function Home() {
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
     setIdClaims(data);
-    const token = await getAccessTokenSilently({
-      audience: 'http://localhost:8080',
-    });
-    setAccessToken(jwt_decode(token));
+    const params = new URLSearchParams(window.location.search);
+    let sso_code = params.get('code');
+    if (data || sso_code) {
+      const token = await getAccessTokenSilently({
+        audience: 'http://localhost:8080',
+      });
+      setAccessToken(jwt_decode(token));
+    }
   }, []);
 
   useEffect(() => {
@@ -89,6 +93,17 @@ export default function Home() {
     setLoginData(null);
     logout();
   };
+
+  const loginButtons = [
+    { text: 'Login', params: { custom_workflow: '1' } },
+    { text: 'Login w SSO', params: { connection: 'OktaSAML' } },
+    { text: 'Login w Org A', params: { organization: 'org_uTGQp17SrA1PX0tY' } },
+    { text: 'Login w Org B', params: { organization: 'org_3vMJmTZoFIpZ1tp5' } },
+    { text: 'Login w SMS', params: { connection: 'sms' } },
+    { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
+    { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
+    { text: 'Signup', params: { screen_hint: 'signup' } },
+  ];
   
   return (
     <>
@@ -218,65 +233,20 @@ export default function Home() {
     <br></br>
     <div style={{width:"1100px", margin:"0 auto"}}>
       {!user && !errorDescription &&
-      <>
-        <button 
-          onClick={() => loginWithRedirect({custom_workflow: '1'})}
-          style={{display: 'inline-block'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({connection: 'OktaSAML'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login w SSO
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({organization: 'org_uTGQp17SrA1PX0tY'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login w Org A
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login w Org B
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({connection: 'sms'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login w SMS
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({'ext-alt-brand' : 'portal_1'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login w Alt Brand
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({connection : 'custom-db'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Login w Custom DB
-        </button>
-        <button 
-          onClick={() => loginWithRedirect({screen_hint: 'signup'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Sign Up
-        </button>
+        <>
+          {loginButtons.map(b => {
+            return (
+                    <button 
+                      onClick={() => loginWithRedirect(b.params)} 
+                      style={{display: 'inline-block', marginLeft: '10px'}}
+                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    >
+                      {b.text}
+                    </button>
+            );
+          })}
         </>
-      } 
+      }
       {!user && errorDescription && 
         <>
           <p>{errorDescription}</p>
