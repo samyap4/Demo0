@@ -34,14 +34,6 @@ export default function Home() {
     }
   }, []);
 
-  // useEffect(() => {
-  //   const params = new URLSearchParams(window.location.search);
-  //   let sso_code = params.get('code');
-  //   if (sso_code) {
-  //     loginWithRedirect();
-  //   }
-  // }, []);
-
   const goToDatadog = () => {
     window.open('https://auth.sam-yap.com/samlp/2OoBeHp2MThFiczdXVdrTJh5YHIE9p85', '_blank');
   }
