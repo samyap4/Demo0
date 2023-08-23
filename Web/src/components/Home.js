@@ -14,14 +14,14 @@ export default function Home() {
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
     setIdClaims(data);
-    const params = new URLSearchParams(window.location.search);
-    let sso_code = params.get('code');
-    if (data || sso_code) {
-      const token = await getAccessTokenSilently({
+    const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
+    let rawToken = JSON.parse(auth0Values).body.access_token;
+    if (!accessToken) {
+      rawToken = await getAccessTokenSilently({
         audience: 'http://localhost:8080',
       });
-      setAccessToken(jwt_decode(token));
     }
+    setAccessToken(jwt_decode(rawToken));
   }, []);
 
   useEffect(() => {
