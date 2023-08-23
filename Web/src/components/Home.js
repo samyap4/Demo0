@@ -15,7 +15,7 @@ export default function Home() {
     const data = await getIdTokenClaims();
     setIdClaims(data);
     const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
-    let rawToken = JSON.parse(auth0Values).body.access_token;
+    let rawToken = JSON.parse(auth0Values)?.body?.access_token;
     if (rawToken === null || rawToken === undefined) {
       rawToken = await getAccessTokenSilently({audience: 'http://localhost:8080'})
     }
