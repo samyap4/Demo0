@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -6,6 +6,7 @@ import {
   useNavigate
 } from "react-router-dom";
 import Home from './components/Home';
+import { useAuth0 } from '@auth0/auth0-react'
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path='/privacy-policy' element={<PrivacyPolicy/>} />
           <Route path='/terms-of-service' element={<TermsOfService/>} />
           <Route path='/about' element={<About/>} />
+          <Route path='/sso' element={<SSO/>} />
         </Routes>
       </div>
     </Router>
@@ -300,6 +302,22 @@ function About() {
         >
           Get Started
     </button>
+    </div>
+    </>
+  );
+}
+
+function SSO() {
+  const { loginWithRedirect } = useAuth0();
+
+  useEffect(() => {
+    loginWithRedirect();
+  }, [])
+
+  return (
+    <>
+    <div style={{width:"800px", margin:"0 auto"}}>
+      Loading...
     </div>
     </>
   );
