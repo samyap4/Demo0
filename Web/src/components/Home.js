@@ -39,7 +39,7 @@ export default function Home() {
   }
 
   const goToOktaReact = () => {
-    window.open('https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://okta-react.samyap.dev/sso/callback', '_blank');
+    window.open('https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://blueocean.samyap.dev/sso/callback', '_blank');
   }
 
   const classNames = (...classes) => {
