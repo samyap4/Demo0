@@ -39,7 +39,7 @@ export default function Home() {
   }
 
   const goToAWS = () => {
-    window.open('https://samyapkowitz.us.auth0.com/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE', '_blank');
+    window.open('https://auth.samyap.dev/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE', '_blank');
   }
 
   const goToOktaReact = () => {
