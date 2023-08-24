@@ -38,6 +38,10 @@ export default function Home() {
     window.open('https://auth.samyap.dev/samlp/2OoBeHp2MThFiczdXVdrTJh5YHIE9p85', '_blank');
   }
 
+  const goToAWS = () => {
+    window.open('https://samyapkowitz.us.auth0.com/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE', '_blank');
+  }
+
   const goToOktaReact = () => {
     window.open('https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://blueocean.samyap.dev/sso/callback', '_blank');
   }
@@ -303,11 +307,11 @@ export default function Home() {
                 Partner App
                 </button>
             <button 
-                onClick={() => goToDatadog()} 
+                onClick={() => goToAWS()} 
                 style={{display: 'inline-block', marginLeft: '10px'}}
                 class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                View Logs (SSO)
+                AWS - SSO
                 </button>
                 <button 
                 onClick={() => loginWithRedirect({acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'})} 
