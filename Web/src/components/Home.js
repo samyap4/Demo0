@@ -35,11 +35,11 @@ export default function Home() {
   }, []);
 
   const goToDatadog = () => {
-    window.open('https://auth.sam-yap.com/samlp/2OoBeHp2MThFiczdXVdrTJh5YHIE9p85', '_blank');
+    window.open('https://auth.samyap.dev/samlp/2OoBeHp2MThFiczdXVdrTJh5YHIE9p85', '_blank');
   }
 
   const goToOktaReact = () => {
-    window.open('https://auth.sam-yap.com/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://okta-react.sam-yap.com/sso/callback', '_blank');
+    window.open('https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://okta-react.samyap.dev/sso/callback', '_blank');
   }
 
   const classNames = (...classes) => {
