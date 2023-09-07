@@ -26,7 +26,9 @@ export default function Home() {
   }, [setAccessToken, setIdClaims]);
 
   useEffect(() => {
-    getClaims();
+    if (user) {
+      getClaims();
+    }
   }, [user]);
 
   useEffect(() => {
