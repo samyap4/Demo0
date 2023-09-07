@@ -17,6 +17,7 @@ export default function Home() {
     const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
     if (rawToken === null || rawToken === undefined) {
+      console.log('getting new tokens')
       rawToken = await getAccessTokenSilently({audience: 'http://localhost:8080'})
     }
     setAccessToken(jwt_decode(rawToken));
