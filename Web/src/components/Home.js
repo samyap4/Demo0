@@ -14,7 +14,7 @@ export default function Home() {
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
     setIdClaims(data);
-    setTimeout(() => console.log('waiting'), 300);
+    // await new Promise(resolve => setTimeout(resolve, 1000));
     const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
     console.log(auth0Values);
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
@@ -23,7 +23,7 @@ export default function Home() {
       rawToken = await getAccessTokenSilently({audience: 'http://localhost:8080'})
     }
     setAccessToken(jwt_decode(rawToken));
-  }, []);
+  }, [setAccessToken, setIdClaims]);
 
   useEffect(() => {
     getClaims();
