@@ -30,6 +30,9 @@ export default function Home() {
     if (user) {
       getClaims();
     } else if (params.get('code')) {
+      // IDP-init flow
+      setLoginData('idp-init');
+      localStorage.setItem("loginData", loginData);
       getAccessTokenSilently({audience: 'http://localhost:8080'});
     }
   }, [user]);
