@@ -26,8 +26,11 @@ export default function Home() {
   }, [setAccessToken, setIdClaims]);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     if (user) {
       getClaims();
+    } else if (params.get('code')) {
+      getAccessTokenSilently({audience: 'http://localhost:8080'});
     }
   }, [user]);
 
@@ -38,10 +41,6 @@ export default function Home() {
       setErrorDescription(error);
     }
   }, []);
-
-  const goToDatadog = () => {
-    window.open('https://auth.samyap.dev/samlp/2OoBeHp2MThFiczdXVdrTJh5YHIE9p85', '_blank');
-  }
 
   const goToAWS = () => {
     window.open('https://auth.samyap.dev/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE', '_blank');
