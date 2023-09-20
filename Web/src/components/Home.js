@@ -31,7 +31,7 @@ export default function Home() {
       getClaims();
     } else if (params.get('code')) {
       // IDP-init flow
-      setLoginData(JSON.stringify(JSON.parse({flow: 'idp-init'})));
+      setLoginData('idp-init');
       localStorage.setItem("loginData", loginData);
       getAccessTokenSilently({audience: 'http://localhost:8080'});
     }
@@ -66,7 +66,7 @@ export default function Home() {
 
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
-      ? JSON.parse(localStorage.getItem("loginData"))
+      ? (localStorage.getItem("loginData"))
       : null
   );
 
