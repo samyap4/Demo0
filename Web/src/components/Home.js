@@ -12,25 +12,28 @@ export default function Home() {
   const [ errorDescription, setErrorDescription ] = useState();
 
   const getClaims = useCallback(async () => {
-    const params = new URLSearchParams(window.location.search);
     const data = await getIdTokenClaims();
     setIdClaims(data);
     await new Promise(resolve => setTimeout(resolve, 300));
     const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
     console.log(auth0Values);
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
-    if ((rawToken === null || rawToken === undefined) && params.get('code')) {
-      console.log('getting new tokens');
-      setLoginData('idp-init');
-      localStorage.setItem("loginData", loginData);
+    if (rawToken === null || rawToken === undefined) {
+      console.log('getting new tokens')
       rawToken = await getAccessTokenSilently({audience: 'http://localhost:8080'})
     }
     setAccessToken(jwt_decode(rawToken));
   }, [setAccessToken, setIdClaims]);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
     if (user) {
       getClaims();
+    } else if (params.get('code')) {
+      // IDP-init flow
+      setLoginData('idp-init');
+      localStorage.setItem("loginData", loginData);
+      getAccessTokenSilently({audience: 'http://localhost:8080'});
     }
   }, [user]);
 
@@ -103,8 +106,8 @@ export default function Home() {
   const loginButtons = [
     { text: 'Login', params: { custom_workflow: '1' } },
     { text: 'Login w SSO', params: { connection: 'OktaSAML' } },
-    { text: 'Login w Org A', params: { organization: 'team-a' } },
-    { text: 'Login w Org B', params: { organization: 'team-b' } },
+    { text: 'Login w Org A', params: { organization: 'org_uTGQp17SrA1PX0tY' } },
+    { text: 'Login w Org B', params: { organization: 'org_3vMJmTZoFIpZ1tp5' } },
     { text: 'Login w SMS', params: { connection: 'sms' } },
     { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
     { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
