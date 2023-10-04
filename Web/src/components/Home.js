@@ -12,30 +12,25 @@ export default function Home() {
   const [ errorDescription, setErrorDescription ] = useState();
 
   const getClaims = useCallback(async () => {
+    const params = new URLSearchParams(window.location.search);
     const data = await getIdTokenClaims();
     setIdClaims(data);
     await new Promise(resolve => setTimeout(resolve, 300));
     const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
     console.log(auth0Values);
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
-    if (rawToken === null || rawToken === undefined) {
-      console.log('getting new tokens')
+    if ((rawToken === null || rawToken === undefined) && params.get('code')) {
+      console.log('getting new tokens');
+      setLoginData('idp-init');
+      localStorage.setItem("loginData", loginData);
       rawToken = await getAccessTokenSilently({audience: 'http://localhost:8080'})
     }
     setAccessToken(jwt_decode(rawToken));
   }, [setAccessToken, setIdClaims]);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
     if (user) {
-      console.log('entering normal flow');
       getClaims();
-    } else if (params.get('code')) {
-      // IDP-init flow
-      console.log('entering idp-init flow');
-      setLoginData('idp-init');
-      localStorage.setItem("loginData", loginData);
-      getAccessTokenSilently({audience: 'http://localhost:8080'});
     }
   }, [user]);
 
