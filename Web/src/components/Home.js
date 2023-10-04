@@ -28,9 +28,11 @@ export default function Home() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (user) {
+      console.log('entering normal flow');
       getClaims();
     } else if (params.get('code')) {
       // IDP-init flow
+      console.log('entering idp-init flow');
       setLoginData('idp-init');
       localStorage.setItem("loginData", loginData);
       getAccessTokenSilently({audience: 'http://localhost:8080'});
