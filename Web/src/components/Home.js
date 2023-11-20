@@ -2,6 +2,7 @@ import React, { useState, Fragment, useEffect, useCallback } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Transition, Disclosure, Menu } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
+import { ListBox } from './ListBox';
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 
@@ -275,13 +276,7 @@ export default function Home() {
         <div style={{margin: 'auto'}}>
           <h1>Welcome to Open Enrollment!</h1>
           <h2>Follow the Links below to begin your enrollment:</h2>
-          <ul class="list-disc">
-            <li>Medical</li>
-            <li>Dental</li>
-            <li>Vision</li>
-            <li>Short Term</li>
-            <li>FSA</li>
-          </ul>
+          <ListBox/>
           <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
