@@ -273,7 +273,7 @@ export default function Home() {
       }
       {user &&
         <div style={{margin: 'auto'}}>
-          <h1>Welcome to Open Enrollment!</h1>
+          <h1>Empyrean</h1>
        
           <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -340,6 +340,7 @@ export default function Home() {
               Login to Team B
             </button>
           </> */}
+          <h2>Welcome to Open Enrollment!</h2>
           <ul>
             <li>Medical: BCBS</li>
             <li>Dental: MetLife</li>
