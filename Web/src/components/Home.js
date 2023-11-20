@@ -274,6 +274,14 @@ export default function Home() {
       {user &&
         <div style={{margin: 'auto'}}>
           <h1>Welcome to Open Enrollment!</h1>
+          <h2>Follow the Links below to begin your enrollment:</h2>
+          <ul class="list-disc">
+            <li>Medical</li>
+            <li>Dental</li>
+            <li>Vision</li>
+            <li>Short Term</li>
+            <li>FSA</li>
+          </ul>
           <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
