@@ -11,7 +11,7 @@ const people = [
   { name: 'HSA' },
 ]
 
-export default function ListBox() {
+function ListBox() {
   const [selected, setSelected] = useState(people[0])
 
   return (
@@ -69,3 +69,5 @@ export default function ListBox() {
     </div>
   )
 }
+
+export default ListBox;
