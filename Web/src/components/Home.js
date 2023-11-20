@@ -106,7 +106,7 @@ export default function Home() {
 
   const loginButtons = [
     { text: 'Login', params: { custom_workflow: '1' } },
-    { text: 'Login w SSO', params: { connection: 'OktaSAML' } },
+    { text: 'Login w SSO', params: { connection: 'Lululemon' } },
     { text: 'Login w Org A', params: { organization: 'org_uTGQp17SrA1PX0tY' } },
     { text: 'Login w Org B', params: { organization: 'org_3vMJmTZoFIpZ1tp5' } },
     { text: 'Login w SMS', params: { connection: 'sms' } },
