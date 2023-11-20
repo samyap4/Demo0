@@ -71,32 +71,33 @@ export default function Home() {
       : null
   );
 
-  useEffect(() => {
-    const options = {
-      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
-      auto_select: false, // optional
-      cancel_on_tap_outside: false, // optional
-      context: "signin", // optional
-    };
+  // Google One Tap Code
+  // useEffect(() => {
+  //   const options = {
+  //     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
+  //     auto_select: false, // optional
+  //     cancel_on_tap_outside: false, // optional
+  //     context: "signin", // optional
+  //   };
 
-    if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
-      googleOneTap(options, async (response) => {
-        setLoginData(response);
-        localStorage.setItem("loginData", JSON.stringify(response));
-        let jwt = jwt_decode(response.credential);
-        try {
-          const options = {
-           redirect_uri: window.location.origin,
-           login_hint: jwt.email,
-           connection: 'google-oauth2'
-          };
-          loginWithRedirect(options);
-        } catch (err) {
-         console.err("Login failed", err);
-        }
-      });
-    }
-  }, [loginData, errorDescription, isLoading, isAuthenticated]);
+  //   if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
+  //     googleOneTap(options, async (response) => {
+  //       setLoginData(response);
+  //       localStorage.setItem("loginData", JSON.stringify(response));
+  //       let jwt = jwt_decode(response.credential);
+  //       try {
+  //         const options = {
+  //          redirect_uri: window.location.origin,
+  //          login_hint: jwt.email,
+  //          connection: 'google-oauth2'
+  //         };
+  //         loginWithRedirect(options);
+  //       } catch (err) {
+  //        console.err("Login failed", err);
+  //       }
+  //     });
+  //   }
+  // }, [loginData, errorDescription, isLoading, isAuthenticated]);
 
   const logoutGlobally = () => {
     localStorage.removeItem("loginData");
