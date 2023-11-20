@@ -2,7 +2,6 @@ import React, { useState, Fragment, useEffect, useCallback } from 'react'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Transition, Disclosure, Menu, Listbox } from '@headlessui/react'
 import { BellIcon } from '@heroicons/react/outline'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 
