@@ -273,6 +273,7 @@ export default function Home() {
       }
       {user &&
         <div style={{margin: 'auto'}}>
+          <h1>Welcome to Open Enrollment!</h1>
           <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -309,35 +310,35 @@ export default function Home() {
           <br/>
           <hr/>
           <br/>
-          <>
-          <button 
-                onClick={() => goToOktaReact()} 
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                Partner App
-                </button>
+          {/* <>
             <button 
-                onClick={() => goToAWS()} 
-                style={{display: 'inline-block', marginLeft: '10px'}}
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  onClick={() => goToOktaReact()} 
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                  Partner App
+            </button>
+            <button 
+                  onClick={() => goToAWS()} 
+                  style={{display: 'inline-block', marginLeft: '10px'}}
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                  AWS - SSO
+            </button>
+            <button 
+                  onClick={() => loginWithRedirect({acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'})} 
+                  style={{display: 'inline-block', marginLeft: '10px'}}
+                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                AWS - SSO
-                </button>
-                <button 
-                onClick={() => loginWithRedirect({acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'})} 
-                style={{display: 'inline-block', marginLeft: '10px'}}
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Issue MFA
-              </button>
-              <button 
-                onClick={() => loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
-                style={{display: 'inline-block', marginLeft: '10px'}}
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-              >
-                Login to Team B
-              </button>
-          </>
+                  Issue MFA
+            </button>
+            <button 
+              onClick={() => loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
+              style={{display: 'inline-block', marginLeft: '10px'}}
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Login to Team B
+            </button>
+          </> */}
           <br/>
           <br/>
           <hr/>
