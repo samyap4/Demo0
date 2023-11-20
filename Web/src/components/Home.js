@@ -106,7 +106,7 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: 'Login', params: { custom_workflow: '1' } },
+    // { text: 'Login', params: { custom_workflow: '1' } },
     // { text: 'Login w SSO', params: { connection: 'Lululemon' } },
     // { text: 'Login w Org A', params: { organization: 'org_uTGQp17SrA1PX0tY' } },
     // { text: 'Login w Org B', params: { organization: 'org_3vMJmTZoFIpZ1tp5' } },
@@ -114,7 +114,7 @@ export default function Home() {
     // { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
     // { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
     // { text: 'Signup', params: { screen_hint: 'signup' } },
-    // { text: 'Login', params: { organization: 'org_RUz5Akf1AnP7YnqQ' } }
+    { text: 'Login', params: { organization: 'org_RUz5Akf1AnP7YnqQ' } }
   ];
   
   return (
