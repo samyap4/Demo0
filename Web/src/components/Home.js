@@ -115,7 +115,7 @@ export default function Home() {
     // { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
     // { text: 'Signup', params: { screen_hint: 'signup' } },
     { text: 'Login', params: { organization: 'org_RUz5Akf1AnP7YnqQ' } },
-    { text: 'Signup', params: { screen_hint: 'signup' } },
+    { text: 'Signup', params: { screen_hint: 'signup', connection: 'Username-Password-Authentication' } },
   ];
   
   return (
