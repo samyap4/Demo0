@@ -114,7 +114,8 @@ export default function Home() {
     // { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
     // { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
     // { text: 'Signup', params: { screen_hint: 'signup' } },
-    { text: 'Login', params: { organization: 'org_RUz5Akf1AnP7YnqQ' } }
+    { text: 'Login', params: { organization: 'org_RUz5Akf1AnP7YnqQ' } },
+    { text: 'Signup', params: { screen_hint: 'signup' } },
   ];
   
   return (
