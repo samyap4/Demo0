@@ -11,6 +11,7 @@ export default function Home() {
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
+  let companyId = null;
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
@@ -43,6 +44,13 @@ export default function Home() {
     let error = params.get('error_description');
     if (error) {
       setErrorDescription(error);
+    } else {
+      let org = params.get('company');
+      if (org === 'lululemon') {
+        companyId = 'org_RUz5Akf1AnP7YnqQ';
+      } else if (org === 'southwest') {
+        companyId = 'org_9rXgKnxL3dMy2Tpa';
+      }
     }
   }, []);
 
@@ -114,7 +122,7 @@ export default function Home() {
     // { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
     // { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
     // { text: 'Signup', params: { screen_hint: 'signup' } },
-    { text: 'Login', params: { organization: 'org_RUz5Akf1AnP7YnqQ' } },
+    { text: 'Login', params: companyId ? { organization: companyId } : {} },
     { text: 'Signup', params: { screen_hint: 'signup', connection: 'Username-Password-Authentication' } },
   ];
   
