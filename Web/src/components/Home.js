@@ -11,7 +11,7 @@ export default function Home() {
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
-  let companyId = null;
+  const [ companyId, setCompanyId ] = useState(null);
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
@@ -39,20 +39,20 @@ export default function Home() {
     }
   }, [user]);
 
+  const params = new URLSearchParams(window.location.search);
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
     let error = params.get('error_description');
     if (error) {
       setErrorDescription(error);
     } else {
       let org = params.get('company');
       if (org === 'lululemon') {
-        companyId = 'org_RUz5Akf1AnP7YnqQ';
+        setCompanyId('org_RUz5Akf1AnP7YnqQ');
       } else if (org === 'southwest') {
-        companyId = 'org_9rXgKnxL3dMy2Tpa';
+        setCompanyId('org_9rXgKnxL3dMy2Tpa');
       }
     }
-  }, []);
+  }, [params]);
 
   const goToAWS = () => {
     window.open('https://auth.samyap.dev/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE', '_blank');
