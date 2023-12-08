@@ -82,32 +82,32 @@ export default function Home() {
   );
 
   // Google One Tap Code
-  // useEffect(() => {
-  //   const options = {
-  //     client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
-  //     auto_select: false, // optional
-  //     cancel_on_tap_outside: false, // optional
-  //     context: "signin", // optional
-  //   };
+  useEffect(() => {
+    const options = {
+      client_id: process.env.REACT_APP_GOOGLE_CLIENT_ID, // required
+      auto_select: false, // optional
+      cancel_on_tap_outside: false, // optional
+      context: "signin", // optional
+    };
 
-  //   if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
-  //     googleOneTap(options, async (response) => {
-  //       setLoginData(response);
-  //       localStorage.setItem("loginData", JSON.stringify(response));
-  //       let jwt = jwt_decode(response.credential);
-  //       try {
-  //         const options = {
-  //          redirect_uri: window.location.origin,
-  //          login_hint: jwt.email,
-  //          connection: 'google-oauth2'
-  //         };
-  //         loginWithRedirect(options);
-  //       } catch (err) {
-  //        console.err("Login failed", err);
-  //       }
-  //     });
-  //   }
-  // }, [loginData, errorDescription, isLoading, isAuthenticated]);
+    if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
+      googleOneTap(options, async (response) => {
+        setLoginData(response);
+        localStorage.setItem("loginData", JSON.stringify(response));
+        let jwt = jwt_decode(response.credential);
+        try {
+          const options = {
+           redirect_uri: window.location.origin,
+           login_hint: jwt.email,
+           connection: 'google-oauth2'
+          };
+          loginWithRedirect(options);
+        } catch (err) {
+         console.err("Login failed", err);
+        }
+      });
+    }
+  }, [loginData, errorDescription, isLoading, isAuthenticated]);
 
   const logoutGlobally = () => {
     localStorage.removeItem("loginData");
@@ -116,15 +116,11 @@ export default function Home() {
   };
 
   const loginButtons = [
-    // { text: 'Login', params: { custom_workflow: '1' } },
-    // { text: 'Login w SSO', params: { connection: 'Lululemon' } },
-    // { text: 'Login w Org A', params: { organization: 'org_uTGQp17SrA1PX0tY' } },
-    // { text: 'Login w Org B', params: { organization: 'org_3vMJmTZoFIpZ1tp5' } },
-    // { text: 'Login w SMS', params: { connection: 'sms' } },
-    // { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
-    // { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
-    // { text: 'Signup', params: { screen_hint: 'signup' } },
     { text: 'Login', params: companyId ? { organization: companyId } : {} },
+    { text: 'Login w SSO', params: { connection: 'Lululemon' } },
+    { text: 'Login w SMS', params: { connection: 'sms' } },
+    { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
+    { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
     { text: 'Signup', params: { screen_hint: 'signup', connection: 'Username-Password-Authentication' } },
   ];
   
@@ -268,14 +264,14 @@ export default function Home() {
                     </button>
             );
           })}
-          {companyId === 'org_RUz5Akf1AnP7YnqQ' &&
-          <button 
-            onClick={() => loginWithRedirect({connection: 'Lululemon'})} 
-            style={{display: 'inline-block', marginLeft: '10px'}}
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Login w SSO
-        </button>
+         {companyId === 'org_RUz5Akf1AnP7YnqQ' &&
+            <button 
+              onClick={() => loginWithRedirect({connection: 'Lululemon'})} 
+              style={{display: 'inline-block', marginLeft: '10px'}}
+              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Login w SSO
+            </button>
           }
         </>
       }
@@ -283,18 +279,16 @@ export default function Home() {
         <>
           <p>{errorDescription}</p>
           <button 
-          onClick={() => loginWithRedirect({prompt: 'login'})} 
-          style={{display: 'inline-block', marginLeft: '10px'}}
-          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-        >
-          Log In
-        </button>
+            onClick={() => loginWithRedirect({prompt: 'login'})} 
+            style={{display: 'inline-block', marginLeft: '10px'}}
+            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+          >
+            Log In
+          </button>
         </>
       }
       {user &&
         <div style={{margin: 'auto'}}>
-          <h1>Empyrean</h1>
-       
           <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -331,7 +325,7 @@ export default function Home() {
           <br/>
           <hr/>
           <br/>
-          {/* <>
+          <>
             <button 
                   onClick={() => goToOktaReact()} 
                   class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -359,15 +353,7 @@ export default function Home() {
             >
               Login to Team B
             </button>
-          </> */}
-          <h2>Welcome to Open Enrollment!</h2>
-          <ul>
-            <li>Medical: BCBS</li>
-            <li>Dental: MetLife</li>
-            <li>Vision: VSP</li>
-            <li>HSA: Compass</li>
-            <li>Short Term: Prudential</li>
-          </ul>
+          </>
           <br/>
           <br/>
           <hr/>
