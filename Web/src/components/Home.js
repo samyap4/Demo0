@@ -144,7 +144,7 @@ export default function Home() {
       params: {
         screen_hint: "signup",
         connection: "Username-Password-Authentication",
-        scope: "email-flow-1",
+        scope: "ab-experiment-1",
       },
     },
   ];
