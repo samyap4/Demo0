@@ -1,28 +1,40 @@
-import React, { useState, Fragment, useEffect, useCallback } from 'react'
-import { useAuth0 } from '@auth0/auth0-react'
-import { Transition, Disclosure, Menu, Listbox } from '@headlessui/react'
-import { BellIcon } from '@heroicons/react/outline'
+import React, { useState, Fragment, useEffect, useCallback } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
+import { Transition, Disclosure, Menu, Listbox } from "@headlessui/react";
+import { BellIcon } from "@heroicons/react/outline";
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 
 // Baselime Commit
 export default function Home() {
-  const { user, loginWithRedirect, getIdTokenClaims, getAccessTokenSilently, logout, isLoading, isAuthenticated } = useAuth0();
-  const [ idClaims, setIdClaims ] = useState();
-  const [ accessToken, setAccessToken ] = useState();
-  const [ errorDescription, setErrorDescription ] = useState();
-  const [ companyId, setCompanyId ] = useState(null);
+  const {
+    user,
+    loginWithRedirect,
+    getIdTokenClaims,
+    getAccessTokenSilently,
+    logout,
+    isLoading,
+    isAuthenticated,
+  } = useAuth0();
+  const [idClaims, setIdClaims] = useState();
+  const [accessToken, setAccessToken] = useState();
+  const [errorDescription, setErrorDescription] = useState();
+  const [companyId, setCompanyId] = useState(null);
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
     setIdClaims(data);
-    await new Promise(resolve => setTimeout(resolve, 300));
-    const auth0Values = localStorage.getItem('@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access');
+    await new Promise((resolve) => setTimeout(resolve, 300));
+    const auth0Values = localStorage.getItem(
+      "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access",
+    );
     console.log(auth0Values);
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
     if (rawToken === null || rawToken === undefined) {
-      console.log('getting new tokens')
-      rawToken = await getAccessTokenSilently({audience: 'http://localhost:8080'})
+      console.log("getting new tokens");
+      rawToken = await getAccessTokenSilently({
+        audience: "http://localhost:8080",
+      });
     }
     setAccessToken(jwt_decode(rawToken));
   }, [setAccessToken, setIdClaims]);
@@ -31,54 +43,60 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     if (user) {
       getClaims();
-    } else if (params.get('code')) {
+    } else if (params.get("code")) {
       // IDP-init flow
-      setLoginData('idp-init');
+      setLoginData("idp-init");
       localStorage.setItem("loginData", loginData);
-      getAccessTokenSilently({audience: 'http://localhost:8080'});
+      getAccessTokenSilently({ audience: "http://localhost:8080" });
     }
   }, [user]);
 
   const params = new URLSearchParams(window.location.search);
   useEffect(() => {
-    let error = params.get('error_description');
+    let error = params.get("error_description");
     if (error) {
       setErrorDescription(error);
     } else {
-      let org = params.get('company');
-      if (org === 'lululemon') {
-        setCompanyId('org_RUz5Akf1AnP7YnqQ');
-      } else if (org === 'southwest') {
-        setCompanyId('org_9rXgKnxL3dMy2Tpa');
-      } else if (org === 'wholefoods') {
-      setCompanyId('org_TYC0okL11U149FP4');
-    }
+      let org = params.get("company");
+      if (org === "lululemon") {
+        setCompanyId("org_RUz5Akf1AnP7YnqQ");
+      } else if (org === "southwest") {
+        setCompanyId("org_9rXgKnxL3dMy2Tpa");
+      } else if (org === "wholefoods") {
+        setCompanyId("org_TYC0okL11U149FP4");
+      }
     }
   }, [params]);
 
   const goToAWS = () => {
-    window.open('https://auth.samyap.dev/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE', '_blank');
-  }
+    window.open(
+      "https://auth.samyap.dev/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE",
+      "_blank",
+    );
+  };
 
   const goToOktaReact = () => {
-    window.open('https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://blueocean.samyap.dev/sso/callback', '_blank');
-  }
+    window.open(
+      "https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://blueocean.samyap.dev/sso/callback",
+      "_blank",
+    );
+  };
 
   const classNames = (...classes) => {
-    return classes.filter(Boolean).join(' ')
-  }
+    return classes.filter(Boolean).join(" ");
+  };
 
   const navigation = [
-    { name: 'Home', href: '#', current: true },
-    { name: 'About', href: 'about', current: false },
-    { name: 'Privacy Policy', href: 'privacy-policy', current: false },
-    { name: 'Terms of Service', href: 'terms-of-service', current: false },
+    { name: "Home", href: "#", current: true },
+    { name: "About", href: "about", current: false },
+    { name: "Privacy Policy", href: "privacy-policy", current: false },
+    { name: "Terms of Service", href: "terms-of-service", current: false },
   ];
 
   const [loginData, setLoginData] = useState(
     localStorage.getItem("loginData")
-      ? (localStorage.getItem("loginData"))
-      : null
+      ? localStorage.getItem("loginData")
+      : null,
   );
 
   // Google One Tap Code
@@ -97,13 +115,13 @@ export default function Home() {
         let jwt = jwt_decode(response.credential);
         try {
           const options = {
-           redirect_uri: window.location.origin,
-           login_hint: jwt.email,
-           connection: 'google-oauth2'
+            redirect_uri: window.location.origin,
+            login_hint: jwt.email,
+            connection: "google-oauth2",
           };
           loginWithRedirect(options);
         } catch (err) {
-         console.err("Login failed", err);
+          console.err("Login failed", err);
         }
       });
     }
@@ -116,264 +134,295 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: 'Login', params: companyId ? { organization: companyId } : {} },
-    { text: 'Login w SSO', params: { connection: 'Lululemon' } },
-    { text: 'Login w SMS', params: { connection: 'sms' } },
-    { text: 'Login w Alt Brand', params: { 'ext-alt-brand' : 'portal_1' } },
-    { text: 'Login w Custom DB', params: { connection : 'custom-db' } },
-    { text: 'Signup', params: { screen_hint: 'signup', connection: 'Username-Password-Authentication' } },
+    { text: "Login", params: companyId ? { organization: companyId } : {} },
+    { text: "Login w SSO", params: { connection: "Lululemon" } },
+    { text: "Login w SMS", params: { connection: "sms" } },
+    { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
+    { text: "Login w Custom DB", params: { connection: "custom-db" } },
+    {
+      text: "Signup",
+      params: {
+        screen_hint: "signup",
+        connection: "Username-Password-Authentication",
+        scope: "email-flow-1",
+      },
+    },
   ];
-  
+
   return (
     <>
-    <Disclosure as="nav" className="bg-gray-800">
-      {({ open }) => (
-        <>
-          <div className="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
-            <div className="relative flex items-center justify-between h-16">
-              <div className="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
-                <div className="flex-shrink-0 flex items-center">
-                  <img
-                    className="block lg:hidden h-8 w-auto"
-                    src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
-                    alt="Workflow"
-                  />
-                </div>
-                <div className="hidden sm:block sm:ml-6">
-                  <div className="flex space-x-4">
-                    {navigation.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
-                      >
-                        {item.name}
-                      </a>
-                    ))}
+      <Disclosure as="nav" className="bg-gray-800">
+        {({ open }) => (
+          <>
+            <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
+              <div className="relative flex h-16 items-center justify-between">
+                <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
+                  <div className="flex flex-shrink-0 items-center">
+                    <img
+                      className="block h-8 w-auto lg:hidden"
+                      src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg"
+                      alt="Workflow"
+                    />
+                  </div>
+                  <div className="hidden sm:ml-6 sm:block">
+                    <div className="flex space-x-4">
+                      {navigation.map((item) => (
+                        <a
+                          key={item.name}
+                          href={item.href}
+                          className={classNames(
+                            item.current
+                              ? "bg-gray-900 text-white"
+                              : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                            "rounded-md px-3 py-2 text-sm font-medium",
+                          )}
+                          aria-current={item.current ? "page" : undefined}
+                        >
+                          {item.name}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                <button
-                  type="button"
-                  className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-                >
-                  <span className="sr-only">View notifications</span>
-                  <BellIcon className="h-6 w-6" aria-hidden="true" />
-                </button>
+                <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                  <button
+                    type="button"
+                    className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  >
+                    <span className="sr-only">View notifications</span>
+                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                  </button>
 
-                {/* Profile dropdown */}
-                <Menu as="div" className="ml-3 relative">
-                  <div>
-                    <Menu.Button className="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white text-gray-400 hover:text-white">
-                      <span className="sr-only">Open user menu</span>
-                      {/* {profileImage ? <img
+                  {/* Profile dropdown */}
+                  <Menu as="div" className="relative ml-3">
+                    <div>
+                      <Menu.Button className="flex rounded-full bg-gray-800 text-sm text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                        <span className="sr-only">Open user menu</span>
+                        {/* {profileImage ? <img
                         className="h-8 w-8 rounded-full"
                         src={profileImage}
                         alt=""
                       /> :
                       <UserIcon className="h-6 w-6" aria-hidden="true"/>} */}
-                      
-                    </Menu.Button>
-                  </div>
-                  <Transition
-                    as={Fragment}
-                    enter="transition ease-out duration-100"
-                    enterFrom="transform opacity-0 scale-95"
-                    enterTo="transform opacity-100 scale-100"
-                    leave="transition ease-in duration-75"
-                    leaveFrom="transform opacity-100 scale-100"
-                    leaveTo="transform opacity-0 scale-95"
-                  >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Your Profile
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Settings
-                          </a>
-                        )}
-                      </Menu.Item>
-                      <Menu.Item>
-                        {({ active }) => (
-                          <a
-                            href="#"
-                            className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                          >
-                            Sign out
-                          </a>
-                        )}
-                      </Menu.Item>
-                    </Menu.Items>
-                  </Transition>
-                </Menu>
+                      </Menu.Button>
+                    </div>
+                    <Transition
+                      as={Fragment}
+                      enter="transition ease-out duration-100"
+                      enterFrom="transform opacity-0 scale-95"
+                      enterTo="transform opacity-100 scale-100"
+                      leave="transition ease-in duration-75"
+                      leaveFrom="transform opacity-100 scale-100"
+                      leaveTo="transform opacity-0 scale-95"
+                    >
+                      <Menu.Items className="absolute right-0 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700",
+                              )}
+                            >
+                              Your Profile
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700",
+                              )}
+                            >
+                              Settings
+                            </a>
+                          )}
+                        </Menu.Item>
+                        <Menu.Item>
+                          {({ active }) => (
+                            <a
+                              href="#"
+                              className={classNames(
+                                active ? "bg-gray-100" : "",
+                                "block px-4 py-2 text-sm text-gray-700",
+                              )}
+                            >
+                              Sign out
+                            </a>
+                          )}
+                        </Menu.Item>
+                      </Menu.Items>
+                    </Transition>
+                  </Menu>
+                </div>
               </div>
             </div>
-          </div>
 
-          <Disclosure.Panel className="sm:hidden">
-            <div className="px-2 pt-2 pb-3 space-y-1">
-              {navigation.map((item) => (
-                <Disclosure.Button
-                  key={item.name}
-                  as="a"
-                  href={item.href}
-                  className={classNames(
-                    item.current ? 'bg-gray-900 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white',
-                    'block px-3 py-2 rounded-md text-base font-medium'
-                  )}
-                  aria-current={item.current ? 'page' : undefined}
+            <Disclosure.Panel className="sm:hidden">
+              <div className="space-y-1 px-2 pb-3 pt-2">
+                {navigation.map((item) => (
+                  <Disclosure.Button
+                    key={item.name}
+                    as="a"
+                    href={item.href}
+                    className={classNames(
+                      item.current
+                        ? "bg-gray-900 text-white"
+                        : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      "block rounded-md px-3 py-2 text-base font-medium",
+                    )}
+                    aria-current={item.current ? "page" : undefined}
+                  >
+                    {item.name}
+                  </Disclosure.Button>
+                ))}
+              </div>
+            </Disclosure.Panel>
+          </>
+        )}
+      </Disclosure>
+      <br></br>
+      <br></br>
+      <div style={{ width: "1100px", margin: "0 auto" }}>
+        {!user && !errorDescription && (
+          <>
+            {loginButtons.map((b) => {
+              return (
+                <button
+                  onClick={() => loginWithRedirect(b.params)}
+                  style={{ display: "inline-block", marginLeft: "10px" }}
+                  class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                 >
-                  {item.name}
-                </Disclosure.Button>
-              ))}
-            </div>
-          </Disclosure.Panel>
-        </>
-      )}
-    </Disclosure>
-    <br></br>
-    <br></br>
-    <div style={{width:"1100px", margin:"0 auto"}}>
-      {!user && !errorDescription &&
-        <>
-          {loginButtons.map(b => {
-            return (
-                    <button 
-                      onClick={() => loginWithRedirect(b.params)} 
-                      style={{display: 'inline-block', marginLeft: '10px'}}
-                      class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    >
-                      {b.text}
-                    </button>
-            );
-          })}
-        </>
-      }
-      {!user && errorDescription && 
-        <>
-          <p>{errorDescription}</p>
-          <button 
-            onClick={() => loginWithRedirect({prompt: 'login'})} 
-            style={{display: 'inline-block', marginLeft: '10px'}}
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          >
-            Log In
-          </button>
-        </>
-      }
-      {user &&
-        <div style={{margin: 'auto'}}>
-          <div class="relative shadow-md sm:rounded-lg" style={{display: 'inline-block'}}>
-              <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                  <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                      <tr>
-                          <th scope="col" class="px-6 py-3">
-                              ID
-                          </th>
-                          <th scope="col" class="px-6 py-3">
-                              Email
-                          </th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                          <th scope="row" class="px-12 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                            {user.nickname}
-                          </th>
-                          <td class="px-6 py-4 dark:text-white whitespace-nowrap font-medium">
-                            {user.email}
-                          </td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
-          <br></br>
-          <div>
-            <button 
-                onClick={() => logoutGlobally()} 
-                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                >
-                Logout
+                  {b.text}
                 </button>
-        </div>
-          <br/>
-          <hr/>
-          <br/>
+              );
+            })}
+          </>
+        )}
+        {!user && errorDescription && (
           <>
-            <button 
-                  onClick={() => goToOktaReact()} 
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                  Partner App
-            </button>
-            <button 
-                  onClick={() => goToAWS()} 
-                  style={{display: 'inline-block', marginLeft: '10px'}}
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                  >
-                  AWS - SSO
-            </button>
-            <button 
-                  onClick={() => loginWithRedirect({acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'})} 
-                  style={{display: 'inline-block', marginLeft: '10px'}}
-                  class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Issue MFA
-            </button>
-            <button 
-              onClick={() => loginWithRedirect({organization: 'org_3vMJmTZoFIpZ1tp5'})} 
-              style={{display: 'inline-block', marginLeft: '10px'}}
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            <p>{errorDescription}</p>
+            <button
+              onClick={() => loginWithRedirect({ prompt: "login" })}
+              style={{ display: "inline-block", marginLeft: "10px" }}
+              class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
-              Login to Team B
+              Log In
             </button>
           </>
-          <br/>
-          <br/>
-          <hr/>
-          <br/>
-          <>
-          <div class="max-w-sm w-full lg:max-w-full lg:flex overflow-scroll">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">Id Token</div>
-              <p class="text-gray-700 text-xs">
-              <pre>{JSON.stringify(idClaims, null, 2)}</pre>
-              </p>
+        )}
+        {user && (
+          <div style={{ margin: "auto" }}>
+            <div
+              class="relative shadow-md sm:rounded-lg"
+              style={{ display: "inline-block" }}
+            >
+              <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                <thead class="bg-gray-50 text-xs uppercase text-gray-700 dark:bg-gray-700 dark:text-gray-400">
+                  <tr>
+                    <th scope="col" class="px-6 py-3">
+                      ID
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                      Email
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+                    <th
+                      scope="row"
+                      class="whitespace-nowrap px-12 py-4 font-medium text-gray-900 dark:text-white"
+                    >
+                      {user.nickname}
+                    </th>
+                    <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
+                      {user.email}
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-          </div>
-          <br/>
-          <hr/>
-          <br/>
-          <div class="max-w-sm w-full lg:max-w-full lg:flex overflow-scroll">
-            <div class="px-6 py-4">
-              <div class="font-bold text-xl mb-2">Access Token</div>
-              <p class="text-gray-700 text-xs">
-              <pre>{JSON.stringify(accessToken, null, 2)}</pre>
-              </p>
+            <br></br>
+            <div>
+              <button
+                onClick={() => logoutGlobally()}
+                class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+              >
+                Logout
+              </button>
             </div>
+            <br />
+            <hr />
+            <br />
+            <>
+              <button
+                onClick={() => goToOktaReact()}
+                class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Partner App
+              </button>
+              <button
+                onClick={() => goToAWS()}
+                style={{ display: "inline-block", marginLeft: "10px" }}
+                class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                AWS - SSO
+              </button>
+              <button
+                onClick={() =>
+                  loginWithRedirect({
+                    acr_values:
+                      "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
+                  })
+                }
+                style={{ display: "inline-block", marginLeft: "10px" }}
+                class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Issue MFA
+              </button>
+              <button
+                onClick={() =>
+                  loginWithRedirect({ organization: "org_3vMJmTZoFIpZ1tp5" })
+                }
+                style={{ display: "inline-block", marginLeft: "10px" }}
+                class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Login to Team B
+              </button>
+            </>
+            <br />
+            <br />
+            <hr />
+            <br />
+            <>
+              <div class="w-full max-w-sm overflow-scroll lg:flex lg:max-w-full">
+                <div class="px-6 py-4">
+                  <div class="mb-2 text-xl font-bold">Id Token</div>
+                  <p class="text-xs text-gray-700">
+                    <pre>{JSON.stringify(idClaims, null, 2)}</pre>
+                  </p>
+                </div>
+              </div>
+              <br />
+              <hr />
+              <br />
+              <div class="w-full max-w-sm overflow-scroll lg:flex lg:max-w-full">
+                <div class="px-6 py-4">
+                  <div class="mb-2 text-xl font-bold">Access Token</div>
+                  <p class="text-xs text-gray-700">
+                    <pre>{JSON.stringify(accessToken, null, 2)}</pre>
+                  </p>
+                </div>
+              </div>
+            </>
           </div>
-          </>
-        </div>
-      }
-    </div>
+        )}
+      </div>
     </>
-  )
+  );
 }
-
