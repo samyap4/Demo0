@@ -106,6 +106,7 @@ export default function Home() {
       auto_select: false, // optional
       cancel_on_tap_outside: false, // optional
       context: "signin", // optional
+      use_fedcm_for_prompt: true
     };
 
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
