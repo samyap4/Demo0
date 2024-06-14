@@ -1,6 +1,6 @@
 import React, { useState, Fragment, useEffect, useCallback } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Transition, Disclosure, Menu, Listbox } from "@headlessui/react";
+import { Transition, Disclosure, Menu } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
@@ -106,7 +106,7 @@ export default function Home() {
       auto_select: false, // optional
       cancel_on_tap_outside: false, // optional
       context: "signin", // optional
-      use_fedcm_for_prompt: true
+      use_fedcm_for_prompt: true,
     };
 
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
