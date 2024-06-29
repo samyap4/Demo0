@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Triangle } from 'react-loader-spinner'
+import { waveform } from 'ldrs'
 
 export default function App() {
   return (
@@ -915,17 +915,29 @@ function SSO() {
     
   }, []);
 
+  waveform.register();
+
   return (
-    <>
-      <Triangle
-        visible={true}
-        height="80"
-        width="80"
-        color="black"
-        ariaLabel="triangle-loading"
-        wrapperStyle={{}}
-        wrapperClass=""
-        />
-    </>
+    <div style={{
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      margin: 0,
+    }}>
+      <div style={{
+        width: '200px',
+        height: '200px',
+        textAlign: 'center',
+        lineHeight: '200px',
+      }}>
+        <l-waveform
+          size="80"
+          speed="1.2" 
+          stroke="7"
+          color="black" 
+        ></l-waveform>
+      </div>
+    </div>
   );
 }
