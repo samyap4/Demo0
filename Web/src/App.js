@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import Home from "./components/Home";
 import { useAuth0 } from "@auth0/auth0-react";
+import { Triangle } from 'react-loader-spinner'
 
 export default function App() {
   return (
@@ -901,10 +902,9 @@ function SSO() {
   const { loginWithRedirect } = useAuth0();
 
   useEffect(() => {
-    console.log('hello')
     const params = new URLSearchParams(window.location.search);
     let connection = params.get("connection") || null;
-    let locale = params.get("locale") || "en";
+    let locale = params.get("locale") || null;
 
     if (connection) {
       loginWithRedirect({ connection: connection });
@@ -917,7 +917,15 @@ function SSO() {
 
   return (
     <>
-      <div style={{ width: "800px", margin: "0 auto" }}>Loading...</div>
+      <Triangle
+        visible={true}
+        height="80"
+        width="80"
+        color="black"
+        ariaLabel="triangle-loading"
+        wrapperStyle={{}}
+        wrapperClass=""
+        />
     </>
   );
 }
