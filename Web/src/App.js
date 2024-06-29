@@ -906,7 +906,13 @@ function SSO() {
     let connection = params.get("connection") || null;
     let locale = params.get("locale") || "en";
 
-    loginWithRedirect({ connection: connection, ui_locales: locale });
+    if (connection) {
+      loginWithRedirect({ connection: connection });
+    } else if (locale) {
+      loginWithRedirect({ ui_locales: locale });
+    }
+
+    
   }, []);
 
   return (
