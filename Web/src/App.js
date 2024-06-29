@@ -903,7 +903,7 @@ function SSO() {
   useEffect(() => {
     console.log('hello')
     const params = new URLSearchParams(window.location.search);
-    let connection = params.get("connection");
+    let connection = params.get("connection") || null;
     let locale = params.get("locale") || "en";
 
     loginWithRedirect({ connection: connection, ui_locales: locale });
