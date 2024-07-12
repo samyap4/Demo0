@@ -136,18 +136,18 @@ export default function Home() {
 
   const loginButtons = [
     { text: "Login", params: companyId ? { organization: companyId } : {} },
-    // { text: "Login w SSO", params: { connection: "Lululemon" } },
-    // { text: "Login w SMS", params: { connection: "sms" } },
-    // { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
+    { text: "Login w SSO", params: { connection: "Lululemon" } },
+    { text: "Login w SMS", params: { connection: "sms" } },
+    { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
-    // {
-    //   text: "Signup",
-    //   params: {
-    //     screen_hint: "signup",
-    //     connection: "Username-Password-Authentication",
-    //     scope: "ab-experiment-1",
-    //   },
-    // },
+    {
+      text: "Signup",
+      params: {
+        screen_hint: "signup",
+        connection: "Username-Password-Authentication",
+        scope: "ab-experiment-1",
+      },
+    },
   ];
 
   return (
