@@ -137,7 +137,8 @@ export default function Home() {
   const loginButtons = [
     { text: "Login", params: companyId ? { organization: companyId } : {} },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
-    { text: "Login w SMS", params: { connection: "sms" } },
+    { text: "Login w SMS OTP", params: { connection: "sms" } },
+    { text: "Login w Email OTP", params: { connection: "sms" } },
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
