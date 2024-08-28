@@ -37,7 +37,7 @@ export default function Home() {
       });
     }
     setAccessToken(jwt_decode(rawToken));
-  }, [setAccessToken, setIdClaims]);
+  }, []);
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -64,6 +64,8 @@ export default function Home() {
         setCompanyId("org_9rXgKnxL3dMy2Tpa");
       } else if (org === "wholefoods") {
         setCompanyId("org_TYC0okL11U149FP4");
+      } else if (org === "afcu") {
+        setCompanyId("org_W6PaFrPeY4kMxF90");
       }
     }
   }, [params]);
