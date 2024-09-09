@@ -2,6 +2,9 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
+import {
+  FpjsProvider
+} from '@fingerprintjs/fingerprintjs-pro-react'
 import './index.css';
 
 ReactDOM.render(
@@ -14,7 +17,14 @@ ReactDOM.render(
     audience='http://localhost:8080'
   >
     <React.StrictMode>
+    <FpjsProvider
+      loadOptions={{
+        apiKey: "caLcWeQZwhtW5veEEgz0"
+      }}
+    >
       <App />
+    </FpjsProvider>
+
     </React.StrictMode>
   </Auth0Provider>,
   document.getElementById("root")

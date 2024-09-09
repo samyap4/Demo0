@@ -910,9 +910,9 @@ function SSO() {
       loginWithRedirect({ connection: connection });
     } else if (locale) {
       loginWithRedirect({ ui_locales: locale });
-    }
-
-    
+    } else {
+      loginWithRedirect();
+    }    
   }, []);
 
   waveform.register();

@@ -4,6 +4,7 @@ import { Transition, Disclosure, Menu } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
+import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
 
 // Baselime Commit
 export default function Home() {
@@ -20,6 +21,11 @@ export default function Home() {
   const [accessToken, setAccessToken] = useState();
   const [errorDescription, setErrorDescription] = useState();
   const [companyId, setCompanyId] = useState(null);
+  const { data } = useVisitorData(
+    {extendedResult: true},
+    {immediate: true}
+  );
+  const { requestId, visitorId } = data;
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
@@ -137,7 +143,7 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: "Login", params: companyId ? { organization: companyId } : {} },
+    { text: "Login", params: companyId ? { organization: companyId, "visitorId": visitorId } : {} },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
     { text: "Login w Email OTP", params: { connection: "email" } },

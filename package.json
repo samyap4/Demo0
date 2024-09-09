@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@fingerprintjs/fingerprintjs-pro-react": "^2.6.3"
+  }
+}
