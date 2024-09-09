@@ -127,7 +127,7 @@ export default function Home() {
           const options = {
             redirect_uri: window.location.origin,
             login_hint: jwt.email,
-            connection: "google-oauth2",
+            connection: "google-oauth2"
           };
           loginWithRedirect(options);
         } catch (err) {
