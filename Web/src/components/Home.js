@@ -25,7 +25,7 @@ export default function Home() {
     {extendedResult: true},
     {immediate: true}
   );
-  const { requestId, visitorId } = data;
+  const { visitorId } = data;
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
