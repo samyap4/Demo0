@@ -19,7 +19,7 @@ ReactDOM.render(
     <React.StrictMode>
     <FpjsProvider
       loadOptions={{
-        apiKey: "caLcWeQZwhtW5veEEgz0"
+        apiKey: "hLCm2lbfa39fWYTFFOxd"
       }}
     >
       <App />

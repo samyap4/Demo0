@@ -25,7 +25,7 @@ export default function Home() {
     {extendedResult: true},
     {immediate: true}
   );
-  const { visitorId } = data;
+  console.log("fingerprint data", data);
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
@@ -143,7 +143,7 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: "Login", params: companyId ? { organization: companyId, "visitorId": visitorId } : {} },
+    { text: "Login", params: companyId ? { organization: companyId } : {} },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
     { text: "Login w Email OTP", params: { connection: "email" } },
