@@ -14,7 +14,7 @@ ReactDOM.render(
     redirectUri={window.location.origin}
     useRefreshTokens={true}
     cacheLocation='localstorage'
-    audience='http://localhost:8080'
+    audience={process.env.REACT_APP_AUTH0_AUDIENCE}
   >
     <React.StrictMode>
     <FpjsProvider
