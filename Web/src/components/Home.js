@@ -66,13 +66,9 @@ export default function Home() {
     } else {
       let org = params.get("company");
       if (org === "lululemon") {
-        setCompanyId("org_RUz5Akf1AnP7YnqQ");
+        setCompanyId("org_AIzWyAj7ciIytUbf");
       } else if (org === "southwest") {
-        setCompanyId("org_9rXgKnxL3dMy2Tpa");
-      } else if (org === "wholefoods") {
-        setCompanyId("org_TYC0okL11U149FP4");
-      } else if (org === "afcu") {
-        setCompanyId("org_W6PaFrPeY4kMxF90");
+        setCompanyId("org_aR9OschJT23i2p4o");
       }
     }
   }, [params]);
