@@ -54,7 +54,7 @@ export default function Home() {
       // IDP-init flow
       setLoginData("idp-init");
       localStorage.setItem("loginData", loginData);
-      getAccessTokenSilently({ audience: "http://localhost:8080" });
+      getAccessTokenSilently({ audience: "https://api.superwidget" });
     }
   }, [user]);
 
