@@ -69,6 +69,8 @@ export default function Home() {
         setCompanyId("org_AIzWyAj7ciIytUbf");
       } else if (org === "southwest") {
         setCompanyId("org_aR9OschJT23i2p4o");
+      } else if (org === "wholefoods") {
+        setCompanyId("org_Enw4eZ7xwMHfA7c4");
       }
     }
   }, [params]);
