@@ -143,8 +143,8 @@ export default function Home() {
 
   const loginButtons = [
     { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId}  },
-    { text: "Login w SSO", params: { connection: "Lululemon" } },
-    { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
+    { text: "Login w SSO", params: { connection: "LululemonOktaSAML" } },
+    { text: "Login w Lululemon Org", params: { organization: "org_AIzWyAj7ciIytUbf" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
     { text: "Login w Email OTP", params: { connection: "email" } },
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
