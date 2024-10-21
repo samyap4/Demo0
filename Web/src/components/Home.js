@@ -40,7 +40,7 @@ export default function Home() {
     if (rawToken === null || rawToken === undefined) {
       console.log("getting new tokens");
       rawToken = await getAccessTokenSilently({
-        audience: "http://localhost:8080",
+        audience: "https://api.superwidget",
       });
     }
     setAccessToken(jwt_decode(rawToken));
