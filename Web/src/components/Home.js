@@ -406,11 +406,11 @@ export default function Home() {
               >
                 Login to Team B
               </button>
-            </> */}
+            </>
             <br />
             <br />
             <hr />
-            <br />
+            <br /> */}
             <>
               <div class="w-full max-w-sm overflow-scroll lg:flex lg:max-w-full">
                 <div class="px-6 py-4">
