@@ -110,7 +110,7 @@ export default function Home() {
       use_fedcm_for_prompt: true,
     };
 
-    if (!loginData && !isAuthenticated && !errorDescription && !isLoading) {
+    if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
       googleOneTap(options, async (response) => {
         setLoginData(response);
         localStorage.setItem("loginData", JSON.stringify(response));
