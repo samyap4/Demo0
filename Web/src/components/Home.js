@@ -73,8 +73,8 @@ export default function Home() {
         setCompanyId("org_Enw4eZ7xwMHfA7c4");
       } else if (org === "snowflake") {
         setCompanyId("org_TCtaYqLrfOuirkt2");
-      } else if (org === "statefarm") {
-        setCompanyId("org_wMWiVVHRfY0p7s1N");
+      } else if (org === "farmers") {
+        setCompanyId("org_mjLob4X36LWfezT7");
       } else if (org === "athena") {
         setCompanyId("org_ZScqxidoI7uiNWML");
       } else if (org === "wellsfargo") {
