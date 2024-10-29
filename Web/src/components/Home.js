@@ -71,23 +71,17 @@ export default function Home() {
         setCompanyId("org_aR9OschJT23i2p4o");
       } else if (org === "wholefoods") {
         setCompanyId("org_Enw4eZ7xwMHfA7c4");
+      } else if (org === "snowflake") {
+        setCompanyId("org_TCtaYqLrfOuirkt2");
+      } else if (org === "statefarm") {
+        setCompanyId("org_wMWiVVHRfY0p7s1N");
+      } else if (org === "athena") {
+        setCompanyId("org_ZScqxidoI7uiNWML");
+      } else if (org === "wellsfargo") {
+        setCompanyId("org_WhrvGyZKGBmfU1RR");
       }
     }
   }, [params]);
-
-  const goToAWS = () => {
-    window.open(
-      "https://auth.samyap.dev/samlp/9l7gswp9KpFoj0k7v1cRQUsoMlKLMyZE",
-      "_blank",
-    );
-  };
-
-  const goToOktaReact = () => {
-    window.open(
-      "https://auth.samyap.dev/samlp/UzuMwOYAuauzsOBMOPY2esnrN9978oxE?RelayState=https://blueocean.samyap.dev/sso/callback",
-      "_blank",
-    );
-  };
 
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(" ");
