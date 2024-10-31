@@ -64,22 +64,18 @@ export default function Home() {
     if (error) {
       setErrorDescription(error);
     } else {
+      const companyIds = {
+        "lululemon": "org_AIzWyAj7ciIytUbf",
+        "southwest": "org_aR9OschJT23i2p4o",
+        "wholefoods": "org_Enw4eZ7xwMHfA7c4",
+        "snowflake": "org_TCtaYqLrfOuirkt2",
+        "farmers": "org_mjLob4X36LWfezT7",
+        "athena": "org_ZScqxidoI7uiNWML",
+        "wellsfargo": "org_WhrvGyZKGBmfU1RR"
+      };
+      
       let org = params.get("company");
-      if (org === "lululemon") {
-        setCompanyId("org_AIzWyAj7ciIytUbf");
-      } else if (org === "southwest") {
-        setCompanyId("org_aR9OschJT23i2p4o");
-      } else if (org === "wholefoods") {
-        setCompanyId("org_Enw4eZ7xwMHfA7c4");
-      } else if (org === "snowflake") {
-        setCompanyId("org_TCtaYqLrfOuirkt2");
-      } else if (org === "farmers") {
-        setCompanyId("org_mjLob4X36LWfezT7");
-      } else if (org === "athena") {
-        setCompanyId("org_ZScqxidoI7uiNWML");
-      } else if (org === "wellsfargo") {
-        setCompanyId("org_WhrvGyZKGBmfU1RR");
-      }
+      setCompanyId(companyIds[org] || undefined);
     }
   }, [params]);
 
