@@ -64,14 +64,19 @@ export default function Home() {
       setErrorDescription(error);
     } else {
       let org = params.get("company");
-      if (org === "lululemon") {
-        setCompanyId("org_RUz5Akf1AnP7YnqQ");
-      } else if (org === "southwest") {
-        setCompanyId("org_9rXgKnxL3dMy2Tpa");
-      } else if (org === "wholefoods") {
-        setCompanyId("org_TYC0okL11U149FP4");
-      } else if (org === "afcu") {
-        setCompanyId("org_W6PaFrPeY4kMxF90");
+      switch (org) {
+        case "lululemon":
+          setCompanyId("org_RUz5Akf1AnP7YnqQ");
+          break;
+        case "southwest":
+          setCompanyId("org_9rXgKnxL3dMy2Tpa");
+          break;
+        case "wholefoods":
+          setCompanyId("org_TYC0okL11U149FP4");
+          break;
+        case "afcu":
+          setCompanyId("org_W6PaFrPeY4kMxF90");
+          break;
       }
     }
   }, [params]);
