@@ -160,6 +160,15 @@ export default function Home() {
         scope: "ab-experiment-1",
       },
     },
+    {
+      text: "Signup - Post Eligibility",
+      params: {
+        screen_hint: "signup",
+        connection: "Username-Password-Authentication",
+        scope: "ab-experiment-1",
+        login_hint: "test@test.com"
+      },
+    },
   ];
 
   return (
