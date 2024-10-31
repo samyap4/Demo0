@@ -63,21 +63,15 @@ export default function Home() {
     if (error) {
       setErrorDescription(error);
     } else {
+      const companyIds = {
+        "lululemon": "org_RUz5Akf1AnP7YnqQ",
+        "southwest": "org_9rXgKnxL3dMy2Tpa",
+        "wholefoods": "org_TYC0okL11U149FP4",
+        "afcu": "org_W6PaFrPeY4kMxF90"
+      };
+      
       let org = params.get("company");
-      switch (org) {
-        case "lululemon":
-          setCompanyId("org_RUz5Akf1AnP7YnqQ");
-          break;
-        case "southwest":
-          setCompanyId("org_9rXgKnxL3dMy2Tpa");
-          break;
-        case "wholefoods":
-          setCompanyId("org_TYC0okL11U149FP4");
-          break;
-        case "afcu":
-          setCompanyId("org_W6PaFrPeY4kMxF90");
-          break;
-      }
+      setCompanyId(companyIds[org] || undefined);
     }
   }, [params]);
 
