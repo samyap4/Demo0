@@ -17,16 +17,15 @@ export default function Home() {
     isLoading,
     isAuthenticated,
   } = useAuth0();
-  const [idClaims, setIdClaims] = useState();
-  const [accessToken, setAccessToken] = useState();
-  const [errorDescription, setErrorDescription] = useState();
-  const [companyId, setCompanyId] = useState(null);
+  const [ idClaims, setIdClaims ] = useState();
+  const [ accessToken, setAccessToken ] = useState();
+  const [ errorDescription, setErrorDescription ] = useState();
+  const [ companyId, setCompanyId ] = useState(null);
 
   const { data } = useVisitorData(
-    {extendedResult: true},
-    {immediate: true}
+    { extendedResult: true },
+    { immediate: true }
   );
-  console.log("fingerprint data", data);
 
   const getClaims = useCallback(async () => {
     const data = await getIdTokenClaims();
@@ -144,7 +143,7 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId }  },
+    { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId } },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
