@@ -144,7 +144,7 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId}  },
+    { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId }  },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
@@ -159,7 +159,7 @@ export default function Home() {
         connection: "Username-Password-Authentication",
         scope: "ab-experiment-1",
       },
-    // },
+    },
     // {
     //   text: "Signup - Post Eligibility",
     //   params: {
@@ -168,7 +168,7 @@ export default function Home() {
     //     scope: "tivity_user_id:12345678",
     //     login_hint: "test@test.com",
     //   },
-     },
+    // },
   ];
 
   return (
