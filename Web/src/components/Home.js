@@ -165,8 +165,9 @@ export default function Home() {
       params: {
         screen_hint: "signup",
         connection: "Username-Password-Authentication",
-        scope: "ab-experiment-1",
-        login_hint: "test@test.com"
+        scope: "tivity_user_id:12345678",
+        login_hint: "test@test.com",
+        "tivity_user_id": "12345678"
       },
     },
   ];
