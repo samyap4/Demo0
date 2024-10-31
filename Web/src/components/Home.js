@@ -159,17 +159,16 @@ export default function Home() {
         connection: "Username-Password-Authentication",
         scope: "ab-experiment-1",
       },
-    },
-    {
-      text: "Signup - Post Eligibility",
-      params: {
-        screen_hint: "signup",
-        connection: "Username-Password-Authentication",
-        scope: "tivity_user_id:12345678",
-        login_hint: "test@test.com",
-        "tivity_user_id": "12345678"
-      },
-    },
+    // },
+    // {
+    //   text: "Signup - Post Eligibility",
+    //   params: {
+    //     screen_hint: "signup",
+    //     connection: "Username-Password-Authentication",
+    //     scope: "tivity_user_id:12345678",
+    //     login_hint: "test@test.com",
+    //   },
+     },
   ];
 
   return (
