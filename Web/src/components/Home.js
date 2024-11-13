@@ -157,8 +157,7 @@ export default function Home() {
         connection: "Username-Password-Authentication",
         scope: "ab-experiment-1",
       },
-    },
-    { text: "Account Linking Flow", params: { "acccount_linking": "true" } },
+    }
     // {
     //   text: "Signup - Post Eligibility",
     //   params: {
