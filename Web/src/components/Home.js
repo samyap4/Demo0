@@ -52,7 +52,7 @@ export default function Home() {
     } else if (params.get("code")) {
       // IDP-init flow
       setLoginData("idp-init");
-      localStorage.setItem("loginData", loginData);
+      // localStorage.setItem("loginData", loginData);
       getAccessTokenSilently({ audience: "http://localhost:8080" });
     }
   }, [user]);
@@ -101,9 +101,9 @@ export default function Home() {
   ];
 
   const [loginData, setLoginData] = useState(
-    localStorage.getItem("loginData")
-      ? localStorage.getItem("loginData")
-      : null,
+    // localStorage.getItem("loginData")
+    //   ? localStorage.getItem("loginData")
+    //   : null,
   );
 
   // Google One Tap Code
@@ -119,7 +119,7 @@ export default function Home() {
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
       googleOneTap(options, async (response) => {
         setLoginData(response);
-        localStorage.setItem("loginData", JSON.stringify(response));
+        // localStorage.setItem("loginData", JSON.stringify(response));
         let jwt = jwt_decode(response.credential);
         try {
           const options = {
@@ -136,7 +136,7 @@ export default function Home() {
   }, [loginData, errorDescription, isLoading, isAuthenticated]);
 
   const logoutGlobally = () => {
-    localStorage.removeItem("loginData");
+    // localStorage.removeItem("loginData");
     setLoginData(null);
     logout();
   };
