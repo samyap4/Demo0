@@ -127,7 +127,7 @@ export default function Home() {
         }
       });
     }
-  }, [errorDescription, isLoading, isAuthenticated]);
+  }, [errorDescription, isLoading, isAuthenticated, user]);
 
   const logoutGlobally = () => {
     setLoginData(null);
