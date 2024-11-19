@@ -52,7 +52,6 @@ export default function Home() {
     } else if (params.get("code")) {
       // IDP-init flow
       setLoginData("idp-init");
-      // localStorage.setItem("loginData", loginData);
       getAccessTokenSilently({ audience: "http://localhost:8080" });
     }
   }, [user]);
@@ -100,11 +99,7 @@ export default function Home() {
     { name: "Terms of Service", href: "terms-of-service", current: false },
   ];
 
-  const [loginData, setLoginData] = useState(
-    // localStorage.getItem("loginData")
-    //   ? localStorage.getItem("loginData")
-    //   : null,
-  );
+  const [loginData, setLoginData] = useState();
 
   // Google One Tap Code
   useEffect(() => {
@@ -116,10 +111,9 @@ export default function Home() {
       use_fedcm_for_prompt: true,
     };
 
-    if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
+    if (!isAuthenticated && !errorDescription && !isLoading && !companyId) {
       googleOneTap(options, async (response) => {
         setLoginData(response);
-        // localStorage.setItem("loginData", JSON.stringify(response));
         let jwt = jwt_decode(response.credential);
         try {
           const options = {
@@ -133,10 +127,9 @@ export default function Home() {
         }
       });
     }
-  }, [loginData, errorDescription, isLoading, isAuthenticated]);
+  }, [errorDescription, isLoading, isAuthenticated]);
 
   const logoutGlobally = () => {
-    // localStorage.removeItem("loginData");
     setLoginData(null);
     logout();
   };
