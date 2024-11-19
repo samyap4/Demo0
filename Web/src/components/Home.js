@@ -303,17 +303,6 @@ export default function Home() {
       <div style={{ width: "1100px", margin: "0 auto" }}>
         {!user && !errorDescription && (
           <>
-            {/* {loginButtons.map((b) => {
-              return (
-                <button
-                  onClick={() => loginWithRedirect(b.params)}
-                  style={{ display: "inline-block", marginLeft: "10px" }}
-                  class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  {b.text}
-                </button>
-              );
-            })} */}
             <LoginDropdown loginButtons={loginButtons} loginWithRedirect={loginWithRedirect} />
           </>
         )}
