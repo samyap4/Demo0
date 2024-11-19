@@ -111,7 +111,7 @@ export default function Home() {
       use_fedcm_for_prompt: true,
     };
 
-    if (!isAuthenticated && !errorDescription && !isLoading && !companyId) {
+    if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
       googleOneTap(options, async (response) => {
         setLoginData(response);
         let jwt = jwt_decode(response.credential);
@@ -127,7 +127,7 @@ export default function Home() {
         }
       });
     }
-  }, [errorDescription, isLoading, isAuthenticated, user]);
+  }, [loginData, errorDescription, isLoading, isAuthenticated]);
 
   const logoutGlobally = () => {
     setLoginData(null);
