@@ -32,7 +32,7 @@ export default function Home() {
     setIdClaims(data);
     await new Promise((resolve) => setTimeout(resolve, 300));
     const auth0Values = localStorage.getItem(
-      "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::http://localhost:8080::openid profile email offline_access",
+      "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::https://edge.samyap.dev/api::openid profile email offline_access",
     );
     console.log(auth0Values);
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
