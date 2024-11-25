@@ -39,7 +39,7 @@ export default function Home() {
     if (rawToken === null || rawToken === undefined) {
       console.log("getting new tokens");
       rawToken = await getAccessTokenSilently({
-        audience: "http://localhost:8080",
+        audience: "https://edge.samyap.dev/api",
       });
     }
     setAccessToken(jwt_decode(rawToken));
@@ -52,7 +52,7 @@ export default function Home() {
     } else if (params.get("code")) {
       // IDP-init flow
       setLoginData("idp-init");
-      getAccessTokenSilently({ audience: "http://localhost:8080" });
+      getAccessTokenSilently({ audience: "https://edge.samyap.dev/api" });
     }
   }, [user]);
 
