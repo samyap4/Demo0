@@ -114,6 +114,7 @@ export default function Home() {
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
       googleOneTap(options, async (response) => {
         setLoginData(response);
+        console.log('google id token', response.credential);
         let jwt = jwt_decode(response.credential);
         try {
           const options = {
