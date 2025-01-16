@@ -99,6 +99,18 @@ export default function Home() {
     { name: "Terms of Service", href: "terms-of-service", current: false },
   ];
 
+  const generateNonce = () => {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let nonce = '';
+  
+    for (let i = 0; i < 16; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      nonce += characters.charAt(randomIndex);
+    }
+  
+    return nonce;
+  }
+
   const [loginData, setLoginData] = useState();
 
   // Google One Tap Code
@@ -109,6 +121,7 @@ export default function Home() {
       cancel_on_tap_outside: false, // optional
       context: "signin", // optional
       use_fedcm_for_prompt: true,
+      nonce: generateNonce()
     };
 
     if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
