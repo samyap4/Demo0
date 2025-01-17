@@ -11,10 +11,13 @@ ReactDOM.render(
   <Auth0Provider
     domain={process.env.REACT_APP_AUTH0_DOMAIN}
     clientId={process.env.REACT_APP_AUTH0_CLIENT_ID}
-    redirectUri={window.location.origin}
     useRefreshTokens={true}
-    cacheLocation='localstorage'
-    audience={process.env.REACT_APP_AUTH0_AUDIENCE}
+    cacheLocation={'localstorage'}
+    useRefreshTokensFallback={true}
+    authorizationParams={{
+      redirectUri: window.location.origin,
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+    }}
   >
     <React.StrictMode>
     <FpjsProvider
