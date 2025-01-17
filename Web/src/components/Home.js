@@ -133,6 +133,7 @@ export default function Home() {
 
   const loginButtons = [
     { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId}  },
+    { text: "Login w Toggle", params: { "ext-alt-brand": "custom_toggle" } },
     { text: "Login w SSO", params: { connection: "LululemonOktaSAML" } },
     { text: "Login w Lululemon Org", params: { organization: "org_AIzWyAj7ciIytUbf" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
