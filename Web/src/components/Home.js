@@ -37,12 +37,12 @@ export default function Home() {
     );
     console.log(auth0Values);
     let rawToken = JSON.parse(auth0Values)?.body?.access_token;
-    if (rawToken === null || rawToken === undefined) {
-      console.log("getting new tokens");
-      rawToken = await getAccessTokenSilently({
-        audience: "https://api.superwidget",
-      });
-    }
+    // if (rawToken === null || rawToken === undefined) {
+    //   console.log("getting new tokens");
+    //   rawToken = await getAccessTokenSilently({
+    //     audience: "https://api.superwidget",
+    //   });
+    // }
     setAccessToken(jwt_decode(rawToken));
   }, []);
 
