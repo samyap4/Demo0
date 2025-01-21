@@ -4,7 +4,9 @@ import { Transition, Disclosure, Menu } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
-import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
+import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
+import { LocalStorageCache, CacheKey, DecodedToken } from "@auth0/auth0-spa-js";
+import * as Cookie from 'es-cookie';
 
 export default function Home() {
   const {
@@ -125,14 +127,15 @@ export default function Home() {
       googleOneTap(options, async (response) => {
         setLoginData(response);
         console.log('google id token', response.credential);
-        let jwt = jwt_decode(response.credential);
+        // let jwt = jwt_decode(response.credential);
         try {
-          const options = {
-            redirectUri: window.location.origin,
-            login_hint: jwt.email,
-            connection: "google-oauth2"
-          };
-          loginWithRedirect(options);
+          // const options = {
+          //   redirectUri: window.location.origin,
+          //   login_hint: jwt.email,
+          //   connection: "google-oauth2"
+          // };
+          // loginWithRedirect(options);
+          exchangeGoogleTokenForAuth0Tokens(response.credential);
         } catch (err) {
           console.err("Login failed", err);
         }
@@ -173,6 +176,71 @@ export default function Home() {
     //   },
     // },
   ];
+
+  async function exchangeGoogleTokenForAuth0Tokens(google_id_token) {
+    const auth0ClientId = '0BUhFq4zbHPvCXGApUkyTYGJJhaAkBGy';
+    const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN;
+    const auth0Audience = process.env.REACT_APP_AUTH0_AUDIENCE;
+    const auth0Scope = "openid profile email offline_access";
+
+    const response = await fetch(`${auth0Domain}/oauth/token`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
+            "subject_token": google_id_token,
+            "subject_token_type": "http://auth0.com/oauth/token-type/google-id-token",
+            "client_id": auth0ClientId,
+            "scope": auth0Scope,
+            "audience": auth0Audience
+        })
+    });
+
+    /**
+     * We got an token response from Auth0 Server
+     */
+    if (response.status !== 200) {
+        console.warn("Failed to fetch refresh token from Okta, defaulting to logged out");
+        return;
+    }
+
+    /**
+     * Parse out Auth0 Response
+     */
+    const tokens = await response.json();
+
+    // Hackiest jwt DECODE
+    const idTokenContents = JSON.parse(atob(tokens.id_token.split(".")[1]))
+    const decodedToken = {
+        claims: idTokenContents,
+        user: idTokenContents,
+    }
+    const cacheEntry = {
+        access_token: tokens.access_token,
+        audience: auth0Audience,
+        client_id: auth0ClientId,
+        decodedToken,
+        expires_in: tokens.expires_in,
+        id_token: tokens.id_token,
+        oauthTokenScope: auth0Scope,
+        refresh_token: tokens.refresh_token,
+        scope: auth0Scope,
+    };
+
+    const ltStorage = new LocalStorageCache();
+    const cacheKey = {
+        clientId: auth0ClientId,
+        audience: auth0Audience,
+        scope: auth0Scope,
+    };
+    ltStorage.set(cacheKey.toKey(), {
+        body: cacheEntry,
+        expiresAt: Date.now() + 100000000,
+    });
+    Cookie.set(`auth0.${auth0ClientId}.is.authenticated`, JSON.stringify(true));
+}
 
   return (
     <>
