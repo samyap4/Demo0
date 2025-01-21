@@ -183,7 +183,7 @@ export default function Home() {
     const auth0Audience = process.env.REACT_APP_AUTH0_AUDIENCE;
     const auth0Scope = "openid profile email offline_access";
 
-    const response = await fetch(`${auth0Domain}/oauth/token`, {
+    const response = await fetch('https://auth.samyap.dev/oauth/token', {
         method: "POST",
         headers: {
             'Content-Type': 'application/json',
