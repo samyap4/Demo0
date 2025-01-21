@@ -117,7 +117,7 @@ export default function Home() {
             login_hint: jwt.email,
             connection: "google-oauth2"
           };
-          loginWithRedirect({authorizationParams: options});
+          loginWithRedirect(options);
         } catch (err) {
           console.err("Login failed", err);
         }
@@ -133,7 +133,6 @@ export default function Home() {
 
   const loginButtons = [
     { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId}  },
-    { text: "Login w Toggle", params: { "ext-alt-brand": "custom_toggle" } },
     { text: "Login w SSO", params: { connection: "LululemonOktaSAML" } },
     { text: "Login w Lululemon Org", params: { organization: "org_AIzWyAj7ciIytUbf" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
@@ -141,6 +140,7 @@ export default function Home() {
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
+    { text: "Login w Toggle", params: { "ext-alt-brand": "custom_toggle" } },
     {
       text: "Signup",
       params: {
@@ -310,7 +310,7 @@ export default function Home() {
           <>
             <p>{errorDescription}</p>
             <button
-              onClick={() => loginWithRedirect({authorizationParams: { prompt: "login" }})}
+              onClick={() => loginWithRedirect({ prompt: "login" })}
               style={{ display: "inline-block", marginLeft: "10px" }}
               class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
@@ -361,10 +361,8 @@ export default function Home() {
               <button
                 onClick={() =>
                   loginWithRedirect({
-                    authorizationParams: {
                       acr_values:
                       "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
-                    }
                   })
                 }
                 style={{ display: "inline-block", marginLeft: "10px" }}
@@ -470,7 +468,7 @@ const LoginDropdown = ({ loginButtons, loginWithRedirect }) => {
       ))}
     </select>
       <button
-        onClick={() => loginWithRedirect({authorizationParams: selectedButton.params})}
+        onClick={() => loginWithRedirect(selectedButton.params)}
         style={{ display: "inline-block", marginLeft: "10px" }}
         class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
