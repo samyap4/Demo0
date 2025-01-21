@@ -15,7 +15,7 @@ ReactDOM.render(
     cacheLocation={'localstorage'}
     useRefreshTokensFallback={true}
     authorizationParams={{
-      redirectUri: window.location.origin,
+      redirect_uri: window.location.origin,
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
     }}
   >
