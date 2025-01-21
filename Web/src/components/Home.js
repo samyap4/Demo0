@@ -127,15 +127,17 @@ export default function Home() {
       googleOneTap(options, async (response) => {
         setLoginData(response);
         console.log('google id token', response.credential);
-        // let jwt = jwt_decode(response.credential);
+        let jwt = jwt_decode(response.credential);
         try {
-          // const options = {
-          //   redirectUri: window.location.origin,
-          //   login_hint: jwt.email,
-          //   connection: "google-oauth2"
-          // };
-          // loginWithRedirect(options);
-          exchangeGoogleTokenForAuth0Tokens(response.credential);
+          const options = {
+            redirectUri: window.location.origin,
+            login_hint: jwt.email,
+            connection: "google-oauth2"
+          };
+          loginWithRedirect(options);
+
+          // we will cook this up when it's ready
+          // exchangeGoogleTokenForAuth0Tokens(response.credential);
         } catch (err) {
           console.err("Login failed", err);
         }
