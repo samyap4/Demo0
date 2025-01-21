@@ -6,7 +6,6 @@ import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react'
 
-// Baselime Commit
 export default function Home() {
   const {
     user,
