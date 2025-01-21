@@ -21,7 +21,6 @@ export default function Home() {
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
   const [ companyId, setCompanyId ] = useState(null);
-  const [ organization, setOrganization ] = useState(null);
 
   const { data } = useVisitorData(
     { extendedResult: true },
@@ -61,16 +60,15 @@ export default function Home() {
     if (error) {
       setErrorDescription(error);
     } else {
-      // const companyIds = {
-      //   "lululemon": "org_RUz5Akf1AnP7YnqQ",
-      //   "southwest": "org_9rXgKnxL3dMy2Tpa",
-      //   "wholefoods": "org_TYC0okL11U149FP4",
-      //   "afcu": "org_W6PaFrPeY4kMxF90"
-      // };
+      const companyIds = {
+        "lululemon": "org_RUz5Akf1AnP7YnqQ",
+        "southwest": "org_9rXgKnxL3dMy2Tpa",
+        "wholefoods": "org_TYC0okL11U149FP4",
+        "afcu": "org_W6PaFrPeY4kMxF90"
+      };
       
       let org = params.get("company");
-      // setCompanyId(companyIds[org] || undefined);
-      setOrganization(org || undefined);
+      setCompanyId(companyIds[org] || undefined);
     }
   }, [params]);
 
@@ -124,7 +122,7 @@ export default function Home() {
       nonce: generateNonce()
     };
 
-    if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !organization) {
+    if (!loginData && !isAuthenticated && !errorDescription && !isLoading && !companyId) {
       googleOneTap(options, async (response) => {
         setLoginData(response);
         console.log('google id token', response.credential);
@@ -149,9 +147,9 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: "Login", params: organization ? { organization: organization, visitorId: data?.visitorId } : { visitorId: data?.visitorId } },
+    { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId } },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
-    { text: "Login w Lululemon Org", params: { organization: "lululemon" } },
+    { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
     { text: "Login w Email OTP", params: { connection: "email" } },
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
