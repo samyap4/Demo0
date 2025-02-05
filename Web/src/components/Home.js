@@ -212,7 +212,13 @@ export default function Home() {
     /**
      * Parse out Auth0 Response
      */
-    const tokens = await response.json();
+    const data = await response.json();
+
+    // Manually store the tokens (Requires Auth0 provider to use `cacheLocation: "localstorage"`)
+    localStorage.setItem("auth0_access_token", data.access_token);
+    if (data.id_token) {
+      localStorage.setItem("auth0_id_token", data.id_token);
+    }
 
     // // Hackiest jwt DECODE
     // const idTokenContents = JSON.parse(atob(tokens.id_token.split(".")[1]))
