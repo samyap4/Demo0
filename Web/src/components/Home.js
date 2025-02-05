@@ -180,7 +180,7 @@ export default function Home() {
   ];
 
   async function exchangeGoogleTokenForAuth0Tokens(google_id_token) {
-    const auth0ClientId = '0BUhFq4zbHPvCXGApUkyTYGJJhaAkBGy';
+    const auth0ClientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
     const auth0Domain = process.env.REACT_APP_AUTH0_DOMAIN;
     const auth0Audience = process.env.REACT_APP_AUTH0_AUDIENCE;
     const auth0Scope = "openid profile email offline_access";
