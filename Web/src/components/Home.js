@@ -8,6 +8,7 @@ import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 import { LocalStorageCache, CacheKey, DecodedToken } from "@auth0/auth0-spa-js";
 import * as Cookie from 'es-cookie';
 import { use } from "react";
+import createAuth0Client from "@auth0/auth0-spa-js"; // Import low-level Auth0 Client
 
 export default function Home() {
   const {
@@ -17,8 +18,9 @@ export default function Home() {
     getAccessTokenSilently,
     logout,
     isLoading,
-    isAuthenticated
-  } = useAuth0();
+    isAuthenticated,
+    tokenExchange
+  } = useExtendedAuth0();
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
@@ -130,15 +132,16 @@ export default function Home() {
         console.log('google id token', response.credential);
         let jwt = jwt_decode(response.credential);
         try {
-          const options = {
-            redirectUri: window.location.origin,
-            login_hint: jwt.email,
-            connection: "google-oauth2"
-          };
-          loginWithRedirect(options);
+          // const options = {
+          //   redirectUri: window.location.origin,
+          //   login_hint: jwt.email,
+          //   connection: "google-oauth2"
+          // };
+          // loginWithRedirect(options);
 
           // we will cook this up when it's ready
           // exchangeGoogleTokenForAuth0Tokens(response.credential);
+          tokenExchange(response.credential);
         } catch (err) {
           console.err("Login failed", err);
         }
@@ -562,35 +565,57 @@ const LoginDropdown = ({ loginButtons, loginWithRedirect }) => {
 };
 
 
+
+
 const useExtendedAuth0 = () => {
   const { 
-    getAccessTokenSilently, 
     loginWithRedirect, 
     logout, 
+    getAccessTokenSilently, 
     user, 
     isAuthenticated, 
     isLoading, 
-    getAccessTokenWithPopup, 
-    auth0Client 
+    getAccessTokenWithPopup 
   } = useAuth0();
+  
+  const [auth0Client, setAuth0Client] = useState(null);
+
+  useEffect(() => {
+    const initAuth0Client = async () => {
+      const client = await createAuth0Client({
+        domain: process.env.REACT_APP_AUTH0_DOMAIN,
+        clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
+        cacheLocation: "memory", // Ensure the cache is accessible
+        useRefreshTokens: true, 
+      });
+      setAuth0Client(client);
+    };
+
+    initAuth0Client();
+  }, []);
 
   const tokenExchange = async ({ subjectToken }) => {
+    if (!auth0Client) {
+      throw new Error("Auth0 Client not initialized");
+    }
 
     const tokenEndpoint = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`;
 
+    // 1. Perform the Token Exchange
     const response = await fetch(tokenEndpoint, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
-        "subject_token": subjectToken,
-        "subject_token_type": "http://auth0.com/oauth/token-type/google-id-token",
-        "client_id": process.env.REACT_APP_AUTH0_CLIENT_ID,
-        "scope": "openid profile email offline_access",
-        "audience": process.env.REACT_APP_AUTH0_AUDIENCE
-    })
+        grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+        client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+        client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
+        subject_token: subjectToken,
+        subject_token_type: "http://auth0.com/oauth/token-type/google-id-token",
+        scope: "openid profile email offline_access",
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      }),
     });
 
     if (!response.ok) {
@@ -599,12 +624,27 @@ const useExtendedAuth0 = () => {
 
     const data = await response.json();
 
-   // Simulate cache storage by calling getAccessTokenSilently (triggers SDK's token storage)
-   try {
-      await getAccessTokenSilently({ ignoreCache: true });
-   } catch (error) {
-      console.error("Error updating SDK cache:", error);
-   }
+    // 2. Manually Inject Token into Auth0 SDK Cache
+    await auth0Client.cache.set({
+      client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      scope: "openid profile email offline_access",
+      access_token: data.access_token,
+      id_token: data.id_token,
+      expires_in: data.expires_in,
+      token_type: data.token_type,
+      decodedToken: {
+        claims: JSON.parse(atob(data.id_token.split(".")[1])), // Decode JWT payload
+        user: JSON.parse(atob(data.id_token.split(".")[1])),
+      },
+    });
+
+    // 3. Validate that the SDK recognizes the new token
+    try {
+      await getAccessTokenSilently({ ignoreCache: false });
+    } catch (error) {
+      console.warn("Error validating SDK cache:", error);
+    }
 
     return data;
   };
@@ -617,8 +657,9 @@ const useExtendedAuth0 = () => {
     user,
     isAuthenticated,
     isLoading,
-    tokenExchange, // Now behaves like loginWithRedirect
+    tokenExchange,
   };
 };
+
 
 
