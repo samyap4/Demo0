@@ -564,9 +564,6 @@ const useExtendedAuth0 = () => {
   } = useAuth0();
 
   const tokenExchange = async ({ subjectToken }) => {
-    if (!auth0Client) {
-      throw new Error("Auth0 Client not initialized");
-    }
 
     const tokenEndpoint = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`;
 
