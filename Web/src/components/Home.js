@@ -625,7 +625,7 @@ const useExtendedAuth0 = () => {
     const data = await response.json();
 
     // 2. Manually Inject Token into Auth0 SDK Cache
-    await auth0Client.cache.set({
+    await auth0Client.cacheManager.set()({
       client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
       scope: "openid profile email offline_access",
