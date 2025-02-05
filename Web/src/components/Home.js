@@ -139,12 +139,12 @@ export default function Home() {
 
           // we will cook this up when it's ready
           exchangeGoogleTokenForAuth0Tokens(response.credential);
-          
+
           // Simulate cache storage by calling getAccessTokenSilently (triggers SDK's token storage)
           try {
             await getAccessTokenSilently({ ignoreCache: true });
           } catch (error) {
-              console.error("Error updating SDK cache:", error);
+            console.error("Error updating SDK cache:", error);
           }
         } catch (err) {
           console.err("Login failed", err);
@@ -208,48 +208,48 @@ export default function Home() {
         })
     });
 
-    /**
-     * We got an token response from Auth0 Server
-     */
-    if (response.status !== 200) {
-        console.warn("Failed to fetch refresh token from Okta, defaulting to logged out");
-        return;
-    }
+    // /**
+    //  * We got an token response from Auth0 Server
+    //  */
+    // if (response.status !== 200) {
+    //     console.warn("Failed to fetch refresh token from Okta, defaulting to logged out");
+    //     return;
+    // }
 
     /**
      * Parse out Auth0 Response
      */
     const tokens = await response.json();
 
-    // Hackiest jwt DECODE
-    const idTokenContents = JSON.parse(atob(tokens.id_token.split(".")[1]))
-    const decodedToken = {
-        claims: idTokenContents,
-        user: idTokenContents,
-    }
-    const cacheEntry = {
-        access_token: tokens.access_token,
-        audience: auth0Audience,
-        client_id: auth0ClientId,
-        decodedToken,
-        expires_in: tokens.expires_in,
-        id_token: tokens.id_token,
-        oauthTokenScope: auth0Scope,
-        refresh_token: tokens.refresh_token,
-        scope: auth0Scope,
-    };
+    // // Hackiest jwt DECODE
+    // const idTokenContents = JSON.parse(atob(tokens.id_token.split(".")[1]))
+    // const decodedToken = {
+    //     claims: idTokenContents,
+    //     user: idTokenContents,
+    // }
+    // const cacheEntry = {
+    //     access_token: tokens.access_token,
+    //     audience: auth0Audience,
+    //     client_id: auth0ClientId,
+    //     decodedToken,
+    //     expires_in: tokens.expires_in,
+    //     id_token: tokens.id_token,
+    //     oauthTokenScope: auth0Scope,
+    //     refresh_token: tokens.refresh_token,
+    //     scope: auth0Scope,
+    // };
 
-    const ltStorage = new LocalStorageCache();
-    const cacheKey = {
-        clientId: auth0ClientId,
-        audience: auth0Audience,
-        scope: auth0Scope,
-    };
-    ltStorage.set(cacheKey.toKey(), {
-        body: cacheEntry,
-        expiresAt: Date.now() + 100000000,
-    });
-    Cookie.set(`auth0.${auth0ClientId}.is.authenticated`, JSON.stringify(true));
+    // const ltStorage = new LocalStorageCache();
+    // const cacheKey = {
+    //     clientId: auth0ClientId,
+    //     audience: auth0Audience,
+    //     scope: auth0Scope,
+    // };
+    // ltStorage.set(cacheKey.toKey(), {
+    //     body: cacheEntry,
+    //     expiresAt: Date.now() + 100000000,
+    // });
+    // Cookie.set(`auth0.${auth0ClientId}.is.authenticated`, JSON.stringify(true));
 }
 
   return (
