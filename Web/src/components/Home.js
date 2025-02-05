@@ -592,18 +592,12 @@ const useExtendedAuth0 = () => {
 
     const data = await response.json();
 
-    // Store token in the Auth0 SDK cache
-    await auth0Client.cacheManager.set({
-      client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      scope: "openid profile email offline_access",
-      id_token: data.id_token,
-      access_token: data.access_token,
-      expires_at: Date.now() + data.expires_in * 1000, // Convert expires_in to timestamp
-    });
-
-    // Update the Auth0 SDK user state
-    await auth0Client.getUser();
+   // Simulate cache storage by calling getAccessTokenSilently (triggers SDK's token storage)
+   try {
+      await getAccessTokenSilently({ ignoreCache: true });
+   } catch (error) {
+      console.error("Error updating SDK cache:", error);
+   }
 
     return data;
   };
