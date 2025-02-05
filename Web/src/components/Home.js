@@ -585,7 +585,7 @@ const useExtendedAuth0 = () => {
       const client = await createAuth0Client({
         domain: process.env.REACT_APP_AUTH0_DOMAIN,
         clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
-        cacheLocation: "memory", // Ensure the cache is accessible
+        cacheLocation: "localstorage", // Ensure the cache is accessible
         useRefreshTokens: true, 
       });
       setAuth0Client(client);
@@ -594,7 +594,7 @@ const useExtendedAuth0 = () => {
     initAuth0Client();
   }, []);
 
-  const tokenExchange = async ({ subjectToken }) => {
+  const tokenExchange = async (subjectToken) => {
     if (!auth0Client) {
       throw new Error("Auth0 Client not initialized");
     }
