@@ -585,7 +585,7 @@ const useExtendedAuth0 = () => {
       const client = await createAuth0Client({
         domain: process.env.REACT_APP_AUTH0_DOMAIN,
         clientId: process.env.REACT_APP_AUTH0_CLIENT_ID,
-        cacheLocation: "localstorage", // Ensure the cache is accessible
+        cacheLocation: "memory", // Ensure the cache is accessible
         useRefreshTokens: true, 
       });
       setAuth0Client(client);
