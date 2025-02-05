@@ -572,15 +572,14 @@ const useExtendedAuth0 = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: new URLSearchParams({
-        grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
-        client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
-        client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
-        subject_token: subjectToken,
-        subject_token_type: "http://auth0.com/oauth/token-type/google-id-token",
-        scope: "openid profile email offline_access",
-        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      }),
+      body: JSON.stringify({
+        "grant_type": "urn:ietf:params:oauth:grant-type:token-exchange",
+        "subject_token": subjectToken,
+        "subject_token_type": "http://auth0.com/oauth/token-type/google-id-token",
+        "client_id": process.env.REACT_APP_AUTH0_CLIENT_ID,
+        "scope": "openid profile email offline_access",
+        "audience": process.env.REACT_APP_AUTH0_AUDIENCE
+    })
     });
 
     if (!response.ok) {
