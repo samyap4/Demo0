@@ -19,8 +19,10 @@ export default function Home() {
     logout,
     isLoading,
     isAuthenticated,
-    tokenExchange
-  } = useExtendedAuth0();
+    // tokenExchange
+  } = useAuth0();
+  // } = useExtendedAuth0();
+
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
@@ -132,16 +134,16 @@ export default function Home() {
         console.log('google id token', response.credential);
         let jwt = jwt_decode(response.credential);
         try {
-          // const options = {
-          //   redirectUri: window.location.origin,
-          //   login_hint: jwt.email,
-          //   connection: "google-oauth2"
-          // };
-          // loginWithRedirect(options);
+          const options = {
+            redirectUri: window.location.origin,
+            login_hint: jwt.email,
+            connection: "google-oauth2"
+          };
+          loginWithRedirect(options);
 
           // we will cook this up when it's ready
           // exchangeGoogleTokenForAuth0Tokens(response.credential);
-          tokenExchange(response.credential);
+          // tokenExchange(response.credential);
         } catch (err) {
           console.err("Login failed", err);
         }
