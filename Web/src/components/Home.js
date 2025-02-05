@@ -139,6 +139,7 @@ export default function Home() {
 
           // we will cook this up when it's ready
           // exchangeGoogleTokenForAuth0Tokens(response.credential);
+          console.log('calling token exchange with credential: ', response.credential);
           tokenExchange(response.credential);
         } catch (err) {
           console.err("Login failed", err);
