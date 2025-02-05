@@ -7,6 +7,7 @@ import googleOneTap from "google-one-tap";
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 import { LocalStorageCache, CacheKey, DecodedToken } from "@auth0/auth0-spa-js";
 import * as Cookie from 'es-cookie';
+import { use } from "react";
 
 export default function Home() {
   const {
@@ -16,9 +17,8 @@ export default function Home() {
     getAccessTokenSilently,
     logout,
     isLoading,
-    isAuthenticated,
-    tokenExchange
-  } = useExtendedAuth0();
+    isAuthenticated
+  } = useAuth0();
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
@@ -138,9 +138,14 @@ export default function Home() {
           // loginWithRedirect(options);
 
           // we will cook this up when it's ready
-          // exchangeGoogleTokenForAuth0Tokens(response.credential);
-          console.log('calling token exchange with credential: ', response.credential);
-          tokenExchange(response.credential);
+          exchangeGoogleTokenForAuth0Tokens(response.credential);
+          
+          // Simulate cache storage by calling getAccessTokenSilently (triggers SDK's token storage)
+          try {
+            await getAccessTokenSilently({ ignoreCache: true });
+          } catch (error) {
+              console.error("Error updating SDK cache:", error);
+          }
         } catch (err) {
           console.err("Login failed", err);
         }
