@@ -17,7 +17,8 @@ export default function Home() {
     logout,
     isLoading,
     isAuthenticated,
-  } = useAuth0();
+    tokenExchange
+  } = useExtendedAuth0();
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
@@ -137,7 +138,8 @@ export default function Home() {
           // loginWithRedirect(options);
 
           // we will cook this up when it's ready
-          exchangeGoogleTokenForAuth0Tokens(response.credential);
+          // exchangeGoogleTokenForAuth0Tokens(response.credential);
+          tokenExchange(response.credential);
         } catch (err) {
           console.err("Login failed", err);
         }
@@ -547,4 +549,75 @@ const LoginDropdown = ({ loginButtons, loginWithRedirect }) => {
     </>
   );
 };
+
+
+const useExtendedAuth0 = () => {
+  const { 
+    getAccessTokenSilently, 
+    loginWithRedirect, 
+    logout, 
+    user, 
+    isAuthenticated, 
+    isLoading, 
+    getAccessTokenWithPopup, 
+    auth0Client 
+  } = useAuth0();
+
+  const tokenExchange = async ({ subjectToken }) => {
+    if (!auth0Client) {
+      throw new Error("Auth0 Client not initialized");
+    }
+
+    const tokenEndpoint = `https://${process.env.REACT_APP_AUTH0_DOMAIN}/oauth/token`;
+
+    const response = await fetch(tokenEndpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        grant_type: "urn:ietf:params:oauth:grant-type:token-exchange",
+        client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+        client_secret: process.env.REACT_APP_AUTH0_CLIENT_SECRET,
+        subject_token: subjectToken,
+        subject_token_type: "http://auth0.com/oauth/token-type/google-id-token",
+        scope: "openid profile email offline_access",
+        audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error("Token exchange failed");
+    }
+
+    const data = await response.json();
+
+    // Store token in the Auth0 SDK cache
+    await auth0Client.cacheManager.set({
+      client_id: process.env.REACT_APP_AUTH0_CLIENT_ID,
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      scope: "openid profile email offline_access",
+      id_token: data.id_token,
+      access_token: data.access_token,
+      expires_at: Date.now() + data.expires_in * 1000, // Convert expires_in to timestamp
+    });
+
+    // Update the Auth0 SDK user state
+    await auth0Client.getUser();
+
+    return data;
+  };
+
+  return {
+    loginWithRedirect,
+    logout,
+    getAccessTokenSilently,
+    getAccessTokenWithPopup,
+    user,
+    isAuthenticated,
+    isLoading,
+    tokenExchange, // Now behaves like loginWithRedirect
+  };
+};
+
 
