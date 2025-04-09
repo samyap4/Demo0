@@ -168,7 +168,7 @@ export default function Home() {
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
-    { text: "Login w Email OTP", params: { connection: "email", "ext-region": "USA!" } },
+    { text: "Login w Email OTP", params: { connection: "email", "ext-region": "us" } },
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
