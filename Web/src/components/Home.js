@@ -30,7 +30,7 @@ export default function Home() {
   const getClaims = useCallback(async () => {
     // const data = await getIdTokenClaims();
     // setIdClaims(data);
-    await new Promise((resolve) => setTimeout(resolve, 300));
+    // await new Promise((resolve) => setTimeout(resolve, 300));
     const auth0Values = localStorage.getItem(
       "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::https://edge.samyap.dev/api::openid profile email offline_access",
     );
@@ -135,15 +135,11 @@ export default function Home() {
         let jwt = jwt_decode(response.credential);
         try {
           const options = {
-            redirectUri: window.location.origin,
+            redirect_uri: window.location.origin,
             login_hint: jwt.email,
             connection: "google-oauth2"
           };
-          loginWithRedirect(options);
-
-          // we will cook this up when it's ready
-          // exchangeGoogleTokenForAuth0Tokens(response.credential);
-          // tokenExchange(response.credential);
+          loginWithRedirect({authorizationParams: options});
         } catch (err) {
           console.err("Login failed", err);
         }
@@ -333,7 +329,7 @@ export default function Home() {
           <>
             <p>{errorDescription}</p>
             <button
-              onClick={() => loginWithRedirect({ prompt: "login" })}
+              onClick={() => loginWithRedirect({authorizationParams: { prompt: "login" }})}
               style={{ display: "inline-block", marginLeft: "10px" }}
               class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
@@ -402,8 +398,10 @@ export default function Home() {
               <button
                 onClick={() =>
                   loginWithRedirect({
+                    authorizationParams: {
                       acr_values:
                       "http://schemas.openid.net/pape/policies/2007/06/multi-factor",
+                    }
                   })
                 }
                 style={{ display: "inline-block", marginLeft: "10px" }}
@@ -413,7 +411,7 @@ export default function Home() {
               </button>
               <button
                 onClick={() =>
-                  loginWithRedirect({ organization: "org_3vMJmTZoFIpZ1tp5" })
+                  loginWithRedirect({authorizationParams: { organization: "org_3vMJmTZoFIpZ1tp5" }})
                 }
                 style={{ display: "inline-block", marginLeft: "10px" }}
                 class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -486,7 +484,7 @@ const LoginDropdown = ({ loginButtons, loginWithRedirect }) => {
       ))}
     </select>
       <button
-        onClick={() => loginWithRedirect(selectedButton.params)}
+        onClick={() => loginWithRedirect({authorizationParams: selectedButton.params})}
         style={{ display: "inline-block", marginLeft: "10px" }}
         class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
       >
