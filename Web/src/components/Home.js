@@ -5,17 +5,20 @@ import { BellIcon } from "@heroicons/react/outline";
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
+import { useOrgId } from '../context/OrgContextProvider'; // Adjust path
+
 
 export default function Home() {
   const {
     user,
     loginWithRedirect,
-    getIdTokenClaims,
     getAccessTokenSilently,
     logout,
     isLoading,
     isAuthenticated,
   } = useAuth0();
+
+  const orgId = useOrgId(); // Get the managed organization ID
 
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
@@ -355,6 +358,9 @@ export default function Home() {
                     <th scope="col" class="px-6 py-3">
                       Email
                     </th>
+                    <th scope="col" class="px-6 py-3">
+                      Org
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -367,6 +373,9 @@ export default function Home() {
                     </th>
                     <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                       {user.email}
+                    </td>
+                    <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
+                      {orgId}
                     </td>
                   </tr>
                 </tbody>

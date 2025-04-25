@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
+import { OrgContextProvider } from './context/OrgContextProvider';
 import {
   FpjsProvider
 } from '@fingerprintjs/fingerprintjs-pro-react'
@@ -25,7 +26,10 @@ ReactDOM.render(
         apiKey: "hLCm2lbfa39fWYTFFOxd"
       }}
     >
-      <App />
+      <OrgContextProvider>
+        <App />
+      </OrgContextProvider>
+      
     </FpjsProvider>
 
     </React.StrictMode>
