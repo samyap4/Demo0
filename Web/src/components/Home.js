@@ -30,14 +30,17 @@ export default function Home() {
   const getClaims = useCallback(async () => {
     // const data = await getIdTokenClaims();
     // setIdClaims(data);
-    await new Promise((resolve) => setTimeout(resolve, 100));
-    const auth0Values = localStorage.getItem(
+    // await new Promise((resolve) => setTimeout(resolve, 100));
+    const auth0AccessTokenValues = localStorage.getItem(
       "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::https://edge.samyap.dev/api::openid profile email offline_access",
     );
-    console.log(auth0Values);
-    let rawAccessToken = JSON.parse(auth0Values)?.body?.access_token;
-    let rawIdToken = JSON.parse(auth0Values)?.body?.id_token;
-    setIdClaims(jwt_decode(rawIdToken));
+    const auth0IdTokenValues = localStorage.getItem(
+      "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::@@user@@",
+    );
+    
+    let rawAccessToken = JSON.parse(auth0AccessTokenValues)?.body?.access_token;
+    let IdClaims = JSON.parse(auth0IdTokenValues)?.decodedToken?.claims;
+    setIdClaims(IdClaims);
     setAccessToken(jwt_decode(rawAccessToken));
   }, []);
 
