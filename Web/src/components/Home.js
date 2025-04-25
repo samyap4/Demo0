@@ -358,9 +358,11 @@ export default function Home() {
                     <th scope="col" class="px-6 py-3">
                       Email
                     </th>
-                    <th scope="col" class="px-6 py-3">
-                      Org
-                    </th>
+                    {org && 
+                      <th scope="col" class="px-6 py-3">
+                        Org
+                      </th>
+                    }
                   </tr>
                 </thead>
                 <tbody>
@@ -374,9 +376,11 @@ export default function Home() {
                     <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                       {user.email}
                     </td>
-                    <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
-                      {orgId}
-                    </td>
+                    {org && 
+                      <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
+                        {orgId}
+                      </td>
+                    }
                   </tr>
                 </tbody>
               </table>
