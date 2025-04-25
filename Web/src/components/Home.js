@@ -30,7 +30,7 @@ export default function Home() {
   const getClaims = useCallback(async () => {
     // const data = await getIdTokenClaims();
     // setIdClaims(data);
-    // await new Promise((resolve) => setTimeout(resolve, 300));
+    await new Promise((resolve) => setTimeout(resolve, 100));
     const auth0Values = localStorage.getItem(
       "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::https://edge.samyap.dev/api::openid profile email offline_access",
     );
