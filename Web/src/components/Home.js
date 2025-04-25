@@ -37,12 +37,8 @@ export default function Home() {
     console.log(auth0Values);
     let rawAccessToken = JSON.parse(auth0Values)?.body?.access_token;
     let rawIdToken = JSON.parse(auth0Values)?.body?.id_token;
-    // if (rawToken === null || rawToken === undefined) {
-    //   console.log("getting new tokens");
-    //   rawToken = await getAccessTokenSilently();
-    // }
-    setAccessToken(jwt_decode(rawAccessToken));
     setIdClaims(jwt_decode(rawIdToken));
+    setAccessToken(jwt_decode(rawAccessToken));
   }, []);
 
   useEffect(() => {
