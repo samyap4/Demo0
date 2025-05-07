@@ -104,7 +104,7 @@ export default function Home() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user_id: idClaims.sub }),
+      body: JSON.stringify({ user_id: errorDescription.split(':')[1] }),
     });
 
     const responseData = await response.json();
