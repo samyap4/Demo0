@@ -34,7 +34,6 @@ export default function Home() {
     // const data = await getIdTokenClaims();
     // setIdClaims(data);
     // await new Promise((resolve) => setTimeout(resolve, 100));
-    console.log('fingerprint id', data.visitorId);
     const auth0AccessTokenValues = localStorage.getItem(
       "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::https://edge.samyap.dev/api::openid profile email offline_access",
     );
@@ -160,7 +159,7 @@ export default function Home() {
   };
 
   const loginButtons = [
-    { text: "Login", params: companyId ? { organization: companyId, visitorId: data.visitorId } : { visitorId: data.visitorId } },
+    { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId } },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
     { text: "Login w SMS OTP", params: { connection: "sms" } },
