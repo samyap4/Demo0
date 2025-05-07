@@ -98,6 +98,22 @@ export default function Home() {
     );
   };
 
+  const clearAllSessions = async () => {
+    const { user } = useAuth0();
+
+    const response = await fetch('https://edge.samyap.dev/api/clear-all-sessions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ user_id: user.sub }),
+    });
+
+    const responseData = await response.json();
+
+    console.log(responseData);
+  }
+
   const classNames = (...classes) => {
     return classes.filter(Boolean).join(" ");
   };
@@ -340,6 +356,13 @@ export default function Home() {
               class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             >
               Log In
+            </button>
+            <button
+              onClick={() => clearAllSessions()}
+              style={{ display: "inline-block", marginLeft: "10px" }}
+              class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            >
+              Sign Me Out of All Devices
             </button>
           </>
         )}
