@@ -99,14 +99,12 @@ export default function Home() {
   };
 
   const clearAllSessions = async () => {
-    const { user } = useAuth0();
-
     const response = await fetch('https://edge.samyap.dev/api/clear-all-sessions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user_id: user.sub }),
+      body: JSON.stringify({ user_id: idClaims.sub }),
     });
 
     const responseData = await response.json();
