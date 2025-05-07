@@ -23,7 +23,7 @@ ReactDOM.render(
     <React.StrictMode>
     <FpjsProvider
       loadOptions={{
-        apiKey: "hLCm2lbfa39fWYTFFOxd"
+        apiKey: process.env.FINGERPRINT_PUBLIC_KEY
       }}
     >
       <OrgContextProvider>
