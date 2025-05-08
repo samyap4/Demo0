@@ -6,6 +6,7 @@ import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 import { useOrgId } from '../context/OrgContextProvider'; // Adjust path
+import { useNavigate } from "react-router-dom";
 
 
 export default function Home() {
@@ -17,6 +18,8 @@ export default function Home() {
     isLoading,
     isAuthenticated,
   } = useAuth0();
+
+  const navigate = useNavigate();
 
   const orgId = useOrgId(); // Get the managed organization ID
 
@@ -110,6 +113,11 @@ export default function Home() {
     const responseData = await response.json();
 
     console.log(responseData);
+
+    // TODO - navigate home if this returns successfully!
+    if (responseData.message) {
+      navigate("/sso");
+    }
   }
 
   const classNames = (...classes) => {
