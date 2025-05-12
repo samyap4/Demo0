@@ -114,7 +114,6 @@ export default function Home() {
 
     console.log(responseData);
 
-    // TODO - navigate home if this returns successfully!
     if (responseData.message) {
       navigate("/sso");
     }
@@ -189,6 +188,7 @@ export default function Home() {
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
+    { text: "Login w Firebase", params: { connection: "firebase-auth-migration" } },
     {
       text: "Signup",
       params: {
