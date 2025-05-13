@@ -12,7 +12,7 @@ import { waveform } from 'ldrs'
 export default function App() {
   return (
     <Router>
-      <div>
+      <>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
@@ -20,7 +20,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/sso" element={<SSO />} />
         </Routes>
-      </div>
+      </>
     </Router>
   );
 }

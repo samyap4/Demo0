@@ -255,7 +255,7 @@ export default function Home() {
 
                   {/* Profile dropdown */}
                   <Menu as="div" className="relative ml-3">
-                    <div>
+                    <>
                       <Menu.Button className="flex rounded-full bg-gray-800 text-sm text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
                         <span className="sr-only">Open user menu</span>
                         {/* {profileImage ? <img
@@ -265,7 +265,7 @@ export default function Home() {
                       /> :
                       <UserIcon className="h-6 w-6" aria-hidden="true"/>} */}
                       </Menu.Button>
-                    </div>
+                    </>
                     <Transition
                       as={Fragment}
                       enter="transition ease-out duration-100"
@@ -415,14 +415,14 @@ export default function Home() {
               </table>
             </div>
             <br></br>
-            <div>
+            <>
               <button
                 onClick={() => logoutGlobally()}
                 class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
               >
                 Logout
               </button>
-            </div>
+            </>
             <br />
             <hr />
             <br />
