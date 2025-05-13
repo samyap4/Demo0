@@ -907,9 +907,9 @@ function SSO() {
     let locale = params.get("locale") || null;
 
     if (connection) {
-      loginWithRedirect({ connection: connection });
+      loginWithRedirect({ authorizationParams: { connection: connection }});
     } else if (locale) {
-      loginWithRedirect({ ui_locales: locale });
+      loginWithRedirect({ authorizationParams: { ui_locales: locale }});
     } else {
       loginWithRedirect();
     }    
