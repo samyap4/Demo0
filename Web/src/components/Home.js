@@ -8,7 +8,6 @@ import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
 import { useOrgId } from '../context/OrgContextProvider'; // Adjust path
 import { useNavigate } from "react-router-dom";
 
-
 export default function Home() {
   const {
     user,
@@ -189,6 +188,7 @@ export default function Home() {
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
     { text: "Login w Firebase", params: { connection: "firebase-auth-migration" } },
+    { text: "Login w Phone", params: { connection: "phone" } },
     {
       text: "Signup",
       params: {
