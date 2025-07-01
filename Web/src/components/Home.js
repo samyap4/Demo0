@@ -53,11 +53,11 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     if (user) {
       getClaims();
-    } else if (params.get("code")) {
+    } else if (params.get("code") && !idClaims) {
       // IDP-init flow
-      // console.log('idp-init flow starting');
-      // setLoginData("idp-init");
-      // getAccessTokenSilently();
+      console.log('idp-init flow starting');
+      setLoginData("idp-init");
+      getAccessTokenSilently();
     }
   }, [user]);
 
