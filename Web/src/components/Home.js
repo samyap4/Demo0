@@ -49,20 +49,12 @@ export default function Home() {
     } else {
       console.log('entering IDP-init flow');
       console.log('idclaims', IdClaims);
+      setLoginData("idp-init");
       getAccessTokenSilently();
     }
   }, []);
 
   useEffect(() => {
-    // const params = new URLSearchParams(window.location.search);
-    // if (user) {
-    //   getClaims();
-    // } else if (params.get("code") && !idClaims && !orgId) {
-    //   // IDP-init flow
-    //   console.log('idp-init flow starting');
-    //   setLoginData("idp-init");
-    //   getAccessTokenSilently();
-    // }
     getClaims();
   }, [user]);
 
