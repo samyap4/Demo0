@@ -55,9 +55,9 @@ export default function Home() {
       getClaims();
     } else if (params.get("code")) {
       // IDP-init flow
-      console.log('idp-init flow starting');
-      setLoginData("idp-init");
-      getAccessTokenSilently();
+      // console.log('idp-init flow starting');
+      // setLoginData("idp-init");
+      // getAccessTokenSilently();
     }
   }, [user]);
 
