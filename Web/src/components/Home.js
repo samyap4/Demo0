@@ -23,12 +23,6 @@ export default function Home() {
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
   const [ companyId, setCompanyId ] = useState(null);
-
-  const orgId = useOrgId(); // Get the managed organization ID
-  console.log('idClaims', idClaims);
-  if (idClaims) {
-    console.log(idClaims['https://samyap.dev/org_name']);
-  }
   
   const orgName = idClaims ? idClaims['https://samyap.dev/org_name'] : null;
 
@@ -384,14 +378,9 @@ export default function Home() {
                     <th scope="col" class="px-6 py-3">
                       Email
                     </th>
-                    {orgId && 
-                      <th scope="col" class="px-6 py-3">
-                        Org ID
-                      </th>
-                    }
                     {orgName && 
                       <th scope="col" class="px-6 py-3">
-                        Org Name
+                        Org
                       </th>
                     }
                   </tr>
@@ -407,11 +396,6 @@ export default function Home() {
                     <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                       {user.email}
                     </td>
-                    {orgId && 
-                      <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
-                        {orgId}
-                      </td>
-                    }
                     {orgName && 
                       <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                         {orgName}
