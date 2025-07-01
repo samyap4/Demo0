@@ -25,6 +25,7 @@ export default function Home() {
   const [ companyId, setCompanyId ] = useState(null);
   
   const orgName = idClaims ? idClaims['https://samyap.dev/org_name'] : null;
+  const org_logo_url = idClaims ? idClaims['https://samyap.dev/org_logo_url'] : null;
 
   const { data } = useVisitorData(
     { extendedResult: true },
@@ -378,11 +379,18 @@ export default function Home() {
                     <th scope="col" class="px-6 py-3">
                       Email
                     </th>
-                    {orgName && 
-                      <th scope="col" class="px-6 py-3">
-                        Org
-                      </th>
-                    }
+                    {orgName && (
+                      <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
+                        <div class="flex items-center">
+                          <img
+                            src={org_logo_url}
+                            alt={`${orgName} logo`}
+                            class="mr-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
+                          />
+                          <span>{orgName}</span>
+                        </div>
+                      </td>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
