@@ -904,9 +904,12 @@ function SSO() {
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     let connection = params.get("connection") || null;
+    let organization = params.get("organization") || null;
     let locale = params.get("locale") || null;
 
-    if (connection) {
+    if (connection && organization) {
+      loginWithRedirect({ authorizationParams: { connection: connection, organization: organization }});
+    } else if (connection) {
       loginWithRedirect({ authorizationParams: { connection: connection }});
     } else if (locale) {
       loginWithRedirect({ authorizationParams: { ui_locales: locale }});
