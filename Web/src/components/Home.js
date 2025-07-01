@@ -53,7 +53,7 @@ export default function Home() {
     const params = new URLSearchParams(window.location.search);
     if (user) {
       getClaims();
-    } else if (params.get("code") && !idClaims) {
+    } else if (params.get("code") && !idClaims && !orgId) {
       // IDP-init flow
       console.log('idp-init flow starting');
       setLoginData("idp-init");
