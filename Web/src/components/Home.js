@@ -12,7 +12,6 @@ export default function Home() {
   const {
     user,
     loginWithRedirect,
-    getAccessTokenSilently,
     logout,
     isLoading,
     isAuthenticated,
@@ -20,12 +19,15 @@ export default function Home() {
 
   const navigate = useNavigate();
 
-  const orgId = useOrgId(); // Get the managed organization ID
-
   const [ idClaims, setIdClaims ] = useState();
   const [ accessToken, setAccessToken ] = useState();
   const [ errorDescription, setErrorDescription ] = useState();
   const [ companyId, setCompanyId ] = useState(null);
+
+  const orgId = useOrgId(); // Get the managed organization ID
+  console.log('idClaims', idClaims);
+  console.log(idClaims['https://samyap.dev/org_name']);
+  const orgName = idClaims['https://samyap.dev/org_name'];
 
   const { data } = useVisitorData(
     { extendedResult: true },
@@ -386,7 +388,12 @@ export default function Home() {
                     </th>
                     {orgId && 
                       <th scope="col" class="px-6 py-3">
-                        Org
+                        Org ID
+                      </th>
+                    }
+                    {orgName && 
+                      <th scope="col" class="px-6 py-3">
+                        Org Name
                       </th>
                     }
                   </tr>
@@ -405,6 +412,11 @@ export default function Home() {
                     {orgId && 
                       <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                         {orgId}
+                      </td>
+                    }
+                    {orgName && 
+                      <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
+                        {orgName}
                       </td>
                     }
                   </tr>
