@@ -51,11 +51,6 @@ export default function Home() {
     if (IdClaims) {
       setIdClaims(IdClaims);
       setAccessToken(jwt_decode(rawAccessToken));
-    } else {
-      console.log('entering IDP-init flow');
-      console.log('idclaims', IdClaims);
-      setLoginData("idp-init");
-      // getAccessTokenSilently();
     }
   }, []);
 
