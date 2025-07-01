@@ -379,18 +379,11 @@ export default function Home() {
                     <th scope="col" class="px-6 py-3">
                       Email
                     </th>
-                    {orgName && (
-                      <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
-                        <div class="flex items-center">
-                          <img
-                            src={org_logo_url}
-                            alt={`${orgName} logo`}
-                            class="mr-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
-                          />
-                          <span>{orgName}</span>
-                        </div>
-                      </td>
-                    )}
+                    {orgName && 
+                      <th scope="col" class="px-6 py-3">
+                        Org
+                      </th>
+                    }
                   </tr>
                 </thead>
                 <tbody>
@@ -404,11 +397,18 @@ export default function Home() {
                     <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                       {user.email}
                     </td>
-                    {orgName && 
+                    {orgName && (
                       <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
-                        {orgName}
+                        <div class="flex items-center">
+                          <img
+                            src={org_logo_url}
+                            alt={`${orgName} logo`}
+                            class="mr-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
+                          />
+                          <span>{orgName}</span>
+                        </div>
                       </td>
-                    }
+                    )}
                   </tr>
                 </tbody>
               </table>
