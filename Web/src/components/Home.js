@@ -50,7 +50,7 @@ export default function Home() {
       console.log('entering IDP-init flow');
       console.log('idclaims', IdClaims);
       setLoginData("idp-init");
-      getAccessTokenSilently();
+      // getAccessTokenSilently();
     }
   }, []);
 
