@@ -33,9 +33,6 @@ export default function Home() {
   );
 
   const getClaims = useCallback(async () => {
-    // const data = await getIdTokenClaims();
-    // setIdClaims(data);
-    // await new Promise((resolve) => setTimeout(resolve, 100));
     const auth0AccessTokenValues = localStorage.getItem(
       "@@auth0spajs@@::jy9k2snrECCsGY6iDyTAOUFH9UEApycT::https://edge.samyap.dev/api::openid profile email offline_access",
     );
@@ -45,20 +42,26 @@ export default function Home() {
     
     let rawAccessToken = JSON.parse(auth0AccessTokenValues)?.body?.access_token;
     let IdClaims = JSON.parse(auth0IdTokenValues)?.decodedToken?.claims;
-    setIdClaims(IdClaims);
-    setAccessToken(jwt_decode(rawAccessToken));
+
+    if (IdClaims) {
+      setIdClaims(IdClaims);
+      setAccessToken(jwt_decode(rawAccessToken));
+    } else {
+      getAccessTokenSilently();
+    }
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (user) {
-      getClaims();
-    } else if (params.get("code") && !idClaims && !orgId) {
-      // IDP-init flow
-      console.log('idp-init flow starting');
-      setLoginData("idp-init");
-      getAccessTokenSilently();
-    }
+    // const params = new URLSearchParams(window.location.search);
+    // if (user) {
+    //   getClaims();
+    // } else if (params.get("code") && !idClaims && !orgId) {
+    //   // IDP-init flow
+    //   console.log('idp-init flow starting');
+    //   setLoginData("idp-init");
+    //   getAccessTokenSilently();
+    // }
+    getClaims();
   }, [user]);
 
   const params = new URLSearchParams(window.location.search);
