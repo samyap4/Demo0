@@ -26,8 +26,11 @@ export default function Home() {
 
   const orgId = useOrgId(); // Get the managed organization ID
   console.log('idClaims', idClaims);
-  console.log(idClaims['https://samyap.dev/org_name']);
-  const orgName = idClaims['https://samyap.dev/org_name'];
+  if (idClaims) {
+    console.log(idClaims['https://samyap.dev/org_name']);
+  }
+  
+  const orgName = idClaims ? idClaims['https://samyap.dev/org_name'] : null;
 
   const { data } = useVisitorData(
     { extendedResult: true },
