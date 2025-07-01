@@ -400,12 +400,12 @@ export default function Home() {
                     {orgName && (
                       <td class="whitespace-nowrap px-6 py-4 font-medium dark:text-white">
                         <div class="flex items-center">
+                          <span>{orgName}</span>
                           <img
                             src={org_logo_url}
                             alt={`${orgName} logo`}
                             class="mr-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
                           />
-                          <span>{orgName}</span>
                         </div>
                       </td>
                     )}
