@@ -404,7 +404,7 @@ export default function Home() {
                           <img
                             src={org_logo_url}
                             alt={`${orgName} logo`}
-                            class="mr-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
+                            class="ml-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
                           />
                         </div>
                       </td>
