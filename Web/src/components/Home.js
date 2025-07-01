@@ -5,7 +5,6 @@ import { BellIcon } from "@heroicons/react/outline";
 import jwt_decode from "jwt-decode";
 import googleOneTap from "google-one-tap";
 import { useVisitorData } from '@fingerprintjs/fingerprintjs-pro-react';
-import { useOrgId } from '../context/OrgContextProvider'; // Adjust path
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
@@ -25,7 +24,7 @@ export default function Home() {
   const [ companyId, setCompanyId ] = useState(null);
   
   const orgName = idClaims ? idClaims['https://samyap.dev/org_name'] : null;
-  const org_logo_url = idClaims ? idClaims['https://samyap.dev/org_logo_url'] : null;
+  const orgLogoUrl = idClaims ? idClaims['https://samyap.dev/org_logo_url'] : null;
 
   const { data } = useVisitorData(
     { extendedResult: true },
@@ -402,7 +401,7 @@ export default function Home() {
                         <div class="flex items-center">
                           <span>{orgName}</span>
                           <img
-                            src={org_logo_url}
+                            src={orgLogoUrl}
                             alt={`${orgName} logo`}
                             class="ml-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
                           />
