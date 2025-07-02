@@ -171,7 +171,9 @@ export default function Home() {
   };
 
   const fetchAccessTokenSilently = () => {
-    getAccessTokenSilently();
+    getAccessTokenSilently({
+      cacheMode: 'off'
+    });
   }
 
   const loginButtons = [
