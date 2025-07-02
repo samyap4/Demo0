@@ -14,6 +14,7 @@ export default function Home() {
     logout,
     isLoading,
     isAuthenticated,
+    getAccessTokenSilently
   } = useAuth0();
 
   const navigate = useNavigate();
@@ -168,6 +169,10 @@ export default function Home() {
     setLoginData(null);
     logout();
   };
+
+  const fetchAccessTokenSilently = () => {
+    getAccessTokenSilently();
+  }
 
   const loginButtons = [
     { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId } },
@@ -403,7 +408,7 @@ export default function Home() {
                           <img
                             src={orgLogoUrl}
                             alt={`${orgName} logo`}
-                            class="ml-3 h-8 w-8 rounded-full object-cover" // Added image tag with styling
+                            class="ml-3 h-8 w-8 rounded-full object-cover"
                           />
                         </div>
                       </td>
@@ -467,6 +472,13 @@ export default function Home() {
                 class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
               >
                 X-App SSO
+              </button>
+              <button
+                onClick={() => fetchAccessTokenSilently()}
+                style={{ display: "inline-block", marginLeft: "10px" }}
+                class="w-full rounded-lg bg-blue-700 px-5 py-2.5 text-center text-sm font-medium text-white hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 sm:w-auto dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+              >
+                Get New Access Token
               </button>
             </>
             <br />
