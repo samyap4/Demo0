@@ -50,16 +50,16 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    if (user) {
-      getClaims();
-    } else if (params.get("code") && !idClaims) {
-      // IDP-init flow
-      console.log('idp-init flow starting');
-      setLoginData("idp-init");
-      getAccessTokenSilently();
-    }
-    //getClaims();
+    // const params = new URLSearchParams(window.location.search);
+    // if (user) {
+    //   getClaims();
+    // } else if (params.get("code") && !idClaims) {
+    //   // IDP-init flow
+    //   console.log('idp-init flow starting');
+    //   setLoginData("idp-init");
+    //   getAccessTokenSilently();
+    // }
+    getClaims();
   }, [user]);
 
   const params = new URLSearchParams(window.location.search);
