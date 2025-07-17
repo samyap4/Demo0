@@ -204,7 +204,6 @@ export default function Home() {
         scope: "ab-experiment-1",
       },
     },
-    { text: "Login w Toggle", params: { "ext-alt-brand": "custom_toggle" } }
     // {
     //   text: "Signup - Post Eligibility",
     //   params: {
