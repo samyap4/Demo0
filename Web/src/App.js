@@ -906,8 +906,11 @@ function SSO() {
     let connection = params.get("connection") || null;
     let organization = params.get("organization") || null;
     let locale = params.get("locale") || null;
+    let invitation = params.get("invitation") || null;
 
-    if (connection && organization) {
+    if (invitation && organization) {
+      loginWithRedirect({ authorizationParams: { invitation: invitation, organization: organization }});
+    } else if (connection && organization) {
       loginWithRedirect({ authorizationParams: { connection: connection, organization: organization }});
     } else if (connection) {
       loginWithRedirect({ authorizationParams: { connection: connection }});
