@@ -7,6 +7,8 @@ import {
 } from '@fingerprintjs/fingerprintjs-pro-react'
 import './index.css';
 
+// test
+
 ReactDOM.render(
   <Auth0Provider
     domain={process.env.REACT_APP_AUTH0_DOMAIN}
