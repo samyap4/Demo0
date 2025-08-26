@@ -16,8 +16,7 @@ ReactDOM.render(
     useRefreshTokensFallback={true}
     authorizationParams={{
       redirect_uri: window.location.origin,
-      audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'
+      audience: process.env.REACT_APP_AUTH0_AUDIENCE
     }}
     >
     <React.StrictMode>
