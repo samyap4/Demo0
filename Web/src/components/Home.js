@@ -181,7 +181,7 @@ export default function Home() {
 
   const fetchAccessTokenSilently = () => {
     getAccessTokenSilently({
-      acr_values: undefined,
+      acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor',
     });
   }
 
