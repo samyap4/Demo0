@@ -19,6 +19,7 @@ ReactDOM.render(
     authorizationParams={{
       redirect_uri: window.location.origin,
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
+      acr_values: 'dummy'
     }}
     >
     <React.StrictMode>
