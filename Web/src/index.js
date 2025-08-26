@@ -7,8 +7,6 @@ import {
 } from '@fingerprintjs/fingerprintjs-pro-react'
 import './index.css';
 
-// test
-
 ReactDOM.render(
   <Auth0Provider
     domain={process.env.REACT_APP_AUTH0_DOMAIN}
@@ -19,7 +17,7 @@ ReactDOM.render(
     authorizationParams={{
       redirect_uri: window.location.origin,
       audience: process.env.REACT_APP_AUTH0_AUDIENCE,
-      acr_values: 'dummy'
+      acr_values: 'http://schemas.openid.net/pape/policies/2007/06/multi-factor'
     }}
     >
     <React.StrictMode>
