@@ -902,23 +902,27 @@ function SSO() {
   const { loginWithRedirect } = useAuth0();
 
   useEffect(() => {
+    const authParams = {};
     const params = new URLSearchParams(window.location.search);
-    let connection = params.get("connection") || null;
-    let organization = params.get("organization") || null;
-    let locale = params.get("locale") || null;
-    let invitation = params.get("invitation") || null;
+    let hasParams = false; // A flag to track if we found any params.
 
-    if (invitation && organization) {
-      loginWithRedirect({ authorizationParams: { invitation: invitation, organization: organization }});
-    } else if (connection && organization) {
-      loginWithRedirect({ authorizationParams: { connection: connection, organization: organization }});
-    } else if (connection) {
-      loginWithRedirect({ authorizationParams: { connection: connection }});
-    } else if (locale) {
-      loginWithRedirect({ authorizationParams: { ui_locales: locale }});
-    } else {
-      loginWithRedirect();
-    }    
+    const paramConfigs = [
+      ['invitation', 'invitation'],
+      ['organization', 'organization'],
+      ['connection', 'connection'],
+      ['locale', 'ui_locales'] // Maps 'locale' from URL to 'ui_locales'
+    ];
+
+    // Iterate directly over the configuration array.
+    for (const [urlParam, authKey] of paramConfigs) {
+      const value = params.get(urlParam);
+      if (value) {
+        authParams[authKey] = value;
+        hasParams = true;
+      }
+    }
+
+    hasParams ? loginWithRedirect({ authorizationParams: authParams }) : loginWithRedirect();
   }, []);
 
   waveform.register();
