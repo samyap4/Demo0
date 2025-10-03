@@ -902,18 +902,32 @@ function SSO() {
   const { loginWithRedirect } = useAuth0();
 
   useEffect(() => {
+    // Helper function to read a specific cookie by name
+    const getCookie = (name) => {
+      const nameEQ = name + "=";
+      const ca = document.cookie.split(';');
+      for(let i = 0; i < ca.length; i++) {
+        let c = ca[i];
+        while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) === 0) {
+          return c.substring(nameEQ.length, c.length);
+        }
+      }
+      return null;
+    };
+
     const authParams = {};
     const params = new URLSearchParams(window.location.search);
-    let hasParams = false; // A flag to track if we found any params.
+    let hasParams = false;
 
     const paramConfigs = [
       ['invitation', 'invitation'],
       ['organization', 'organization'],
       ['connection', 'connection'],
-      ['locale', 'ui_locales'] // Maps 'locale' from URL to 'ui_locales'
+      ['locale', 'ui_locales']
     ];
 
-    // Iterate directly over the configuration array.
+    // 1. Check for URL parameters
     for (const [urlParam, authKey] of paramConfigs) {
       const value = params.get(urlParam);
       if (value) {
@@ -922,6 +936,19 @@ function SSO() {
       }
     }
 
+    // 2. Check for and decode the login hint cookie 🍪
+    const encodedLoginHint = getCookie('auth0LoginHint');
+    if (encodedLoginHint) {
+      try {
+        // **Decode the cookie value to get the raw string**
+        authParams.login_hint = decodeURIComponent(encodedLoginHint);
+        hasParams = true;
+      } catch (e) {
+        console.error("Failed to decode auth0LoginHint cookie:", e);
+      }
+    }
+
+    // 3. Call loginWithRedirect with params if any were found
     hasParams ? loginWithRedirect({ authorizationParams: authParams }) : loginWithRedirect();
   }, []);
 
