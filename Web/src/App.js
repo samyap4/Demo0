@@ -902,7 +902,6 @@ function SSO() {
   const { loginWithRedirect } = useAuth0();
 
   useEffect(() => {
-    // Helper function to read a specific cookie by name
     const getCookie = (name) => {
       const nameEQ = name + "=";
       const ca = document.cookie.split(';');
