@@ -204,6 +204,7 @@ export default function Home() {
         scope: "ab-experiment-1",
       },
     },
+    { text: "Login w ConvergedDB", params: { connection: "PasswordlessConnection" } },
     // {
     //   text: "Signup - Post Eligibility",
     //   params: {
