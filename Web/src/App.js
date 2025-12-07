@@ -19,6 +19,7 @@ export default function App() {
           <Route path="/terms-of-service" element={<TermsOfService />} />
           <Route path="/about" element={<About />} />
           <Route path="/sso" element={<SSO />} />
+          <Route path="/error" element={<Error />} />
         </Routes>
       </>
     </Router>
@@ -975,5 +976,26 @@ function SSO() {
         ></l-waveform>
       </div>
     </div>
+  );
+}
+
+function Error() {
+  const navigate = useNavigate();
+  return (
+    <>
+      <div style={{ width: "800px", margin: "0 auto" }}>
+        <h1>Error</h1>
+        <p>
+          Hello! Sorry this application is only for use inside of the United States.  Check your connection and then click below to navigate home to start again!
+        </p>
+        <button
+          onClick={() => navigate("/")}
+          style={{ display: "inline-block" }}
+          class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        >
+          Get Started
+        </button>
+      </div>
+    </>
   );
 }
