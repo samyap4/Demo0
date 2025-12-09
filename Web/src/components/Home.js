@@ -162,17 +162,10 @@ export default function Home() {
         console.log('google id token', response.credential);
         let jwt = jwt_decode(response.credential);
         try {
-          // const options = {
-          //   redirect_uri: window.location.origin,
-          //   login_hint: jwt.email,
-          //   connection: "google-oauth2"
-          // };
-          // loginWithRedirect({authorizationParams: options});
-          const tokenResponse = await exchangeToken({
+          await exchangeToken({
             subject_token: response.credential,
             subject_token_type: 'http://auth0.com/oauth/token-type/google-id-token'
           });
-          console.log(tokenResponse);
         } catch (err) {
           console.err("Login failed", err);
         }
