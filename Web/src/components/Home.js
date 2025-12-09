@@ -162,17 +162,17 @@ export default function Home() {
         console.log('google id token', response.credential);
         let jwt = jwt_decode(response.credential);
         try {
-          const options = {
-            redirect_uri: window.location.origin,
-            login_hint: jwt.email,
-            connection: "google-oauth2"
-          };
-          loginWithRedirect({authorizationParams: options});
-          // const tokenResponse = await exchangeToken({
-          //   subject_token: response.credential,
-          //   subject_token_type: 'http://auth0.com/oauth/token-type/google-id-token'
-          // });
-          // console.log(tokenResponse);
+          // const options = {
+          //   redirect_uri: window.location.origin,
+          //   login_hint: jwt.email,
+          //   connection: "google-oauth2"
+          // };
+          // loginWithRedirect({authorizationParams: options});
+          const tokenResponse = await exchangeToken({
+            subject_token: response.credential,
+            subject_token_type: 'http://auth0.com/oauth/token-type/google-id-token'
+          });
+          console.log(tokenResponse);
         } catch (err) {
           console.err("Login failed", err);
         }
@@ -200,7 +200,7 @@ export default function Home() {
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
-     { text: "Login w Cognito", params: { connection: "cognito-custom-db" } },
+    // { text: "Login w Cognito", params: { connection: "cognito-custom-db" } },
     { text: "Login w Firebase", params: { connection: "firebase-auth-migration" } },
     { text: "Login w Phone", params: { connection: "phone" } },
     {
