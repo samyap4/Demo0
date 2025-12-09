@@ -172,7 +172,7 @@ export default function Home() {
           //   subject_token: response.credential,
           //   subject_token_type: 'http://auth0.com/oauth/token-type/google-id-token'
           // });
-          console.log(tokenResponse);
+          // console.log(tokenResponse);
         } catch (err) {
           console.err("Login failed", err);
         }
