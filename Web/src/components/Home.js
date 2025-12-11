@@ -1,4 +1,4 @@
-import React, { useState, Fragment, useEffect, useCallback } from "react";
+import { useState, Fragment, useEffect, useCallback } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Transition, Disclosure, Menu } from "@headlessui/react";
 import { BellIcon } from "@heroicons/react/outline";
@@ -51,15 +51,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    // const params = new URLSearchParams(window.location.search);
-    // if (user) {
-    //   getClaims();
-    // } else if (params.get("code") && !idClaims) {
-    //   // IDP-init flow
-    //   console.log('idp-init flow starting');
-    //   setLoginData("idp-init");
-    //   getAccessTokenSilently();
-    // }
     getClaims();
   }, [user]);
 
