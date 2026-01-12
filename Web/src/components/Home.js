@@ -123,16 +123,13 @@ export default function Home() {
   ];
 
   const generateNonce = () => {
-    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    let nonce = '';
-  
-    for (let i = 0; i < 16; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      nonce += characters.charAt(randomIndex);
-    }
-  
-    return nonce;
-  }
+    const array = new Uint8Array(16);
+    crypto.getRandomValues(array);
+    return btoa(String.fromCharCode(...array))
+      .replace(/[+/=]/g, '')
+      .slice(0, 22);
+  };
+
 
   const [loginData, setLoginData] = useState();
 
