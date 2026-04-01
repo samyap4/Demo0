@@ -174,14 +174,11 @@ export default function Home() {
     { text: "Login", params: companyId ? { organization: companyId, visitorId: data?.visitorId } : { visitorId: data?.visitorId } },
     { text: "Login w SSO", params: { connection: "Lululemon" } },
     { text: "Login w Lululemon Org", params: { organization: "org_RUz5Akf1AnP7YnqQ" } },
-    { text: "Login w SMS OTP", params: { connection: "sms" } },
-    { text: "Login w Email OTP", params: { connection: "email"} },
     { text: "Login w Passkey", params: { "ext-alt-brand": "passkey_only" } },
     { text: "Login w Alt Brand", params: { "ext-alt-brand": "portal_1" } },
     { text: "Login w Custom DB", params: { connection: "custom-db" } },
     // { text: "Login w Cognito", params: { connection: "cognito-custom-db" } },
     { text: "Login w Firebase", params: { connection: "firebase-auth-migration" } },
-    { text: "Login w Phone", params: { connection: "phone" } },
     {
       text: "Signup",
       params: {
@@ -190,15 +187,6 @@ export default function Home() {
         scope: "ab-experiment-1",
       },
     },
-    // {
-    //   text: "Signup - Post Eligibility",
-    //   params: {
-    //     screen_hint: "signup",
-    //     connection: "Username-Password-Authentication",
-    //     scope: "tivity_user_id:12345678",
-    //     login_hint: "test@test.com",
-    //   },
-    // },
   ];
 
   return (
